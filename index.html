@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pemarkahan Silat Digital</title>
+    <title>Sistem Pemarkahan Silat Digital Cloud</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Firebase Cloud SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body class="bg-white text-gray-900 font-sans p-3 min-h-screen flex flex-col justify-between select-none">
 
     <!-- HEADER, LOGO & NAVIGASI -->
     <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md">
-        <!-- TAJUK KELAS -->
         <div class="flex items-center gap-3">
-            <!-- 🖼️ LOGO KEJOHANAN / PERSATUAN (LOGO FATANI.png) -->
             <img id="logo-kejohanan" 
                  src="LOGO FATANI.png" 
                  alt="Logo Fatani" 
@@ -21,11 +22,10 @@
             
             <div>
                 <h1 id="top-kelas" class="text-xl font-black text-gray-800 tracking-wider">KELAS A PUTERA</h1>
-                <p class="text-[10px] text-gray-500 font-bold">SISTEM PEMARKAHAN SILAT DIGITAL</p>
+                <p class="text-[10px] text-emerald-600 font-bold">🟢 FIREBASE SYNC ACTIVE</p>
             </div>
         </div>
 
-        <!-- BUTANG NAVIGASI -->
         <div class="flex gap-2">
             <button onclick="bukaMod('depan')" class="bg-white hover:bg-gray-200 text-gray-800 text-xs px-3 py-2 rounded-xl border border-gray-300 font-bold shadow-sm">🏠 Muka Depan</button>
             <button onclick="mintaAkses('pengadil')" class="bg-yellow-500 hover:bg-yellow-400 text-gray-950 text-xs px-3 py-2 rounded-xl font-black shadow">🔒 Panel Pengadil</button>
@@ -33,19 +33,15 @@
         </div>
     </header>
 
-    <!-- ========================================== -->
-    <!-- 1. MUKA DEPAN (PAPAN MARKAH UTAMA)         -->
-    <!-- ========================================== -->
+    <!-- 1. MUKA DEPAN (PAPAN MARKAH UTAMA) -->
     <main id="mod-depan" class="max-w-5xl mx-auto w-full my-auto py-4">
         <div class="grid grid-cols-2 gap-6">
-            <!-- SUDUT MERAH -->
+            <!-- MERAH -->
             <div class="bg-red-50 border-4 border-red-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
                 <div class="absolute top-0 left-0 bg-red-600 text-white font-black px-4 py-1 rounded-br-2xl text-xs">SUDUT MERAH</div>
                 <h2 id="nama-merah" class="text-4xl font-black mt-2 text-red-900 tracking-wide uppercase">PESILAT MERAH</h2>
                 <p id="club-merah" class="text-base text-red-700 mt-1 uppercase font-semibold">PERTUBUHAN A</p>
-                
                 <div id="mata-merah" class="text-[9rem] font-black leading-none my-2 text-red-600 drop-shadow-md">0</div>
-                
                 <div class="grid grid-cols-3 gap-2 text-xs bg-white p-3 rounded-2xl border border-red-200 shadow-inner">
                     <div><p class="text-gray-500 font-bold text-[10px]">BINAAN</p><p id="binaan-merah" class="text-xl font-black text-amber-600">0/2</p></div>
                     <div><p class="text-gray-500 font-bold text-[10px]">AMARAN (-1)</p><p id="amaran-merah" class="text-xl font-black text-amber-600">0</p></div>
@@ -53,14 +49,12 @@
                 </div>
             </div>
 
-            <!-- SUDUT BIRU -->
+            <!-- BIRU -->
             <div class="bg-blue-50 border-4 border-blue-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
                 <div class="absolute top-0 left-0 bg-blue-600 text-white font-black px-4 py-1 rounded-br-2xl text-xs">SUDUT BIRU</div>
                 <h2 id="nama-biru" class="text-4xl font-black mt-2 text-blue-900 tracking-wide uppercase">PESILAT BIRU</h2>
                 <p id="club-biru" class="text-base text-blue-700 mt-1 uppercase font-semibold">PERTUBUHAN B</p>
-                
                 <div id="mata-biru" class="text-[9rem] font-black leading-none my-2 text-blue-600 drop-shadow-md">0</div>
-                
                 <div class="grid grid-cols-3 gap-2 text-xs bg-white p-3 rounded-2xl border border-blue-200 shadow-inner">
                     <div><p class="text-gray-500 font-bold text-[10px]">BINAAN</p><p id="binaan-biru" class="text-xl font-black text-amber-600">0/2</p></div>
                     <div><p class="text-gray-500 font-bold text-[10px]">AMARAN (-1)</p><p id="amaran-biru" class="text-xl font-black text-amber-600">0</p></div>
@@ -70,9 +64,7 @@
         </div>
     </main>
 
-    <!-- ========================================== -->
-    <!-- 2. BAHAGIAN PENGADIL (TEKAN MARKAH)       -->
-    <!-- ========================================== -->
+    <!-- 2. BAHAGIAN PENGADIL -->
     <main id="mod-pengadil" class="hidden max-w-3xl mx-auto w-full my-auto py-2">
         <div class="flex justify-between items-center bg-gray-100 p-3 rounded-xl mb-3 border border-gray-300">
             <span class="text-xs font-bold text-gray-800">PILIH NOMBOR PENGADIL:</span>
@@ -84,42 +76,37 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 h-[68vh]">
-            <!-- MERAH -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
-                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-2xl font-black rounded-2xl shadow-md border-b-4 border-red-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-2xl font-black rounded-2xl shadow-md border-b-4 border-red-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-2xl font-black rounded-2xl shadow-md border-b-4 border-red-800">JATUHAN (+3)</button>
+                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
+                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
+                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white py-3 font-bold text-xs rounded-xl shadow">BINAAN</button>
-                    <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white py-3 font-bold text-xs rounded-xl shadow">AMARAN (-1)</button>
+                    <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-3 font-bold text-xs rounded-xl">BINAAN</button>
+                    <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-3 font-bold text-xs rounded-xl">AMARAN (-1)</button>
                 </div>
-                <button onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-3 font-bold text-xs rounded-xl shadow">KESALAHAN BERAT (-5)</button>
+                <button onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
             </div>
 
-            <!-- BIRU -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-blue-600 text-sm">SUDUT BIRU</p>
-                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-2xl font-black rounded-2xl shadow-md border-b-4 border-blue-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-2xl font-black rounded-2xl shadow-md border-b-4 border-blue-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-2xl font-black rounded-2xl shadow-md border-b-4 border-blue-800">JATUHAN (+3)</button>
+                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
+                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
+                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white py-3 font-bold text-xs rounded-xl shadow">BINAAN</button>
-                    <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white py-3 font-bold text-xs rounded-xl shadow">AMARAN (-1)</button>
+                    <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-3 font-bold text-xs rounded-xl">BINAAN</button>
+                    <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-3 font-bold text-xs rounded-xl">AMARAN (-1)</button>
                 </div>
-                <button onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-3 font-bold text-xs rounded-xl shadow">KESALAHAN BERAT (-5)</button>
+                <button onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
             </div>
         </div>
     </main>
 
-    <!-- ========================================== -->
-    <!-- 3. BAHAGIAN KETUA PENGADIL (EDIT & UPLOAD)-->
-    <!-- ========================================== -->
+    <!-- 3. KETUA PENGADIL -->
     <main id="mod-ketua" class="hidden max-w-4xl mx-auto w-full my-auto space-y-4 py-2">
         <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md space-y-3">
             <h2 class="font-bold text-emerald-700 text-sm">📝 KETUA PENGADIL - KEMASKINI MAKLUMAT & LOGO</h2>
             
-            <!-- 📁 RUANGAN UPLOAD FAIL GAMBAR (OPTIONAL) -->
             <div class="bg-white p-3 rounded-xl border border-gray-200 space-y-2">
                 <label class="text-xs font-bold text-gray-700 block">📁 MUAT NAIK LOGO LAIN (JPG / PNG):</label>
                 <input type="file" id="upload-logo" accept="image/png, image/jpeg, image/jpg" class="w-full bg-gray-50 border border-gray-300 p-1.5 rounded-lg text-xs text-gray-800 cursor-pointer">
@@ -150,7 +137,7 @@
         </div>
     </main>
 
-    <!-- POPUP MODAL LOGIN (PASSWORD LOCK) -->
+    <!-- POPUP LOGIN -->
     <div id="modal-login" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center p-4 z-50">
         <div class="bg-white p-6 rounded-3xl max-w-sm w-full border border-gray-200 shadow-2xl space-y-4 text-center">
             <div class="bg-amber-100 text-amber-800 p-3 rounded-full w-12 h-12 flex justify-center items-center mx-auto text-xl font-bold">🔒</div>
@@ -158,21 +145,19 @@
                 <h3 id="tajuk-modal" class="font-black text-gray-900 text-lg">LOG MASUK AKSES</h3>
                 <p class="text-xs text-gray-500 mt-0.5">Sila masukkan Username & Password</p>
             </div>
-            
             <div class="space-y-2 text-left">
                 <div>
                     <label class="text-[10px] font-bold text-gray-600 uppercase">Username:</label>
-                    <input type="text" id="input-user" placeholder="Masukkan Username" class="w-full border border-gray-300 p-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <input type="text" id="input-user" placeholder="Masukkan Username" class="w-full border border-gray-300 p-2.5 rounded-xl text-sm">
                 </div>
                 <div>
                     <label class="text-[10px] font-bold text-gray-600 uppercase">Password:</label>
-                    <input type="password" id="input-pass" placeholder="Masukkan Password" class="w-full border border-gray-300 p-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <input type="password" id="input-pass" placeholder="Masukkan Password" class="w-full border border-gray-300 p-2.5 rounded-xl text-sm">
                 </div>
             </div>
-
             <div class="flex gap-2 pt-2">
-                <button onclick="tutupModal()" class="w-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2.5 rounded-xl font-bold text-xs">Batal</button>
-                <button onclick="sahkanLogin()" class="w-1/2 bg-amber-500 hover:bg-amber-600 text-black py-2.5 rounded-xl font-black text-xs shadow">Log Masuk</button>
+                <button onclick="tutupModal()" class="w-1/2 bg-gray-200 text-gray-800 py-2.5 rounded-xl font-bold text-xs">Batal</button>
+                <button onclick="sahkanLogin()" class="w-1/2 bg-amber-500 text-black py-2.5 rounded-xl font-black text-xs shadow">Log Masuk</button>
             </div>
         </div>
     </div>
@@ -181,137 +166,104 @@
         Sistem Pemarkahan Silat Cloud © 2026
     </footer>
 
-    <!-- LOGIK JAVASCRIPT -->
+    <!-- LOGIK FIREBASE CONFIG PROJEK AKIP -->
     <script>
-        const channel = new BroadcastChannel('silat_system_channel');
+        const firebaseConfig = {
+            apiKey: "AIzaSyB4WyizV5KLsu2zSwtUy3mtaFT4KaWxTI0",
+            authDomain: "pemarkahan-silat-c1be6.firebaseapp.com",
+            databaseURL: "https://pemarkahan-silat-c1be6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "pemarkahan-silat-c1be6",
+            storageBucket: "pemarkahan-silat-c1be6.firebasestorage.app",
+            messagingSenderId: "21817076198",
+            appId: "1:21817076198:web:6e300e3b99be826566ce27",
+            measurementId: "G-WT05MRL753"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
         let modTujuan = ""; 
         let sudahLogin = false; 
+        let dataPerlawanan = {};
 
-        let dataPerlawanan = {
-            logo: "LOGO FATANI.png", // 👈 Tetapan asas menggunakan fail LOGO FATANI.png
-            kelas: "KELAS A PUTERA",
-            merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0 },
-            biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0 },
-            logs: []
-        };
-
-        function mintaAkses(mod) {
-            if(sudahLogin) {
-                bukaMod(mod);
-            } else {
-                modTujuan = mod;
-                document.getElementById('input-user').value = "";
-                document.getElementById('input-pass').value = "";
-                document.getElementById('tajuk-modal').innerText = mod === 'pengadil' ? "AKSES PANEL PENGADIL" : "AKSES KETUA PENGADIL";
-                document.getElementById('modal-login').classList.remove('hidden');
+        // Dengar data masa-nyata dari Firebase Cloud
+        db.ref('silat_live').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if(!data) {
+                db.ref('silat_live').set({
+                    logo: "LOGO FATANI.png",
+                    kelas: "KELAS A PUTERA",
+                    merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0 },
+                    biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0 }
+                });
+                return;
             }
-        }
-
-        function sahkanLogin() {
-            const u = document.getElementById('input-user').value;
-            const p = document.getElementById('input-pass').value;
-
-            if(u === "admin" && p === "admin123") {
-                sudahLogin = true;
-                tutupModal();
-                bukaMod(modTujuan);
-            } else {
-                alert("❌ Username atau Password SALAH! Sila cuba lagi.");
-            }
-        }
-
-        function tutupModal() {
-            document.getElementById('modal-login').classList.add('hidden');
-        }
-
-        function bukaMod(mod) {
-            document.getElementById('mod-depan').classList.add('hidden');
-            document.getElementById('mod-pengadil').classList.add('hidden');
-            document.getElementById('mod-ketua').classList.add('hidden');
-
-            if(mod === 'depan') document.getElementById('mod-depan').classList.remove('hidden');
-            if(mod === 'pengadil') document.getElementById('mod-pengadil').classList.remove('hidden');
-            if(mod === 'ketua') {
-                document.getElementById('mod-ketua').classList.remove('hidden');
-                document.getElementById('edit-kelas').value = dataPerlawanan.kelas;
-                document.getElementById('edit-nama-merah').value = dataPerlawanan.merah.nama;
-                document.getElementById('edit-club-merah').value = dataPerlawanan.merah.club;
-                document.getElementById('edit-nama-biru').value = dataPerlawanan.biru.nama;
-                document.getElementById('edit-club-biru').value = dataPerlawanan.biru.club;
-            }
-        }
-
-        function kemaskiniData() {
-            localStorage.setItem('silat_data', JSON.stringify(dataPerlawanan));
-            channel.postMessage(dataPerlawanan);
+            dataPerlawanan = data;
             renderUI();
-        }
-
-        channel.onmessage = (event) => {
-            dataPerlawanan = event.data;
-            renderUI();
-        };
+        });
 
         function renderUI() {
             if(dataPerlawanan.logo) document.getElementById('logo-kejohanan').src = dataPerlawanan.logo;
-            document.getElementById('top-kelas').innerText = dataPerlawanan.kelas;
-            document.getElementById('nama-merah').innerText = dataPerlawanan.merah.nama;
-            document.getElementById('club-merah').innerText = dataPerlawanan.merah.club;
-            document.getElementById('mata-merah').innerText = dataPerlawanan.merah.mata;
-            document.getElementById('binaan-merah').innerText = dataPerlawanan.merah.binaan + "/2";
-            document.getElementById('amaran-merah').innerText = dataPerlawanan.merah.amaran;
-            document.getElementById('berat-merah').innerText = dataPerlawanan.merah.berat;
+            document.getElementById('top-kelas').innerText = dataPerlawanan.kelas || "KELAS PERLAWANAN";
+            document.getElementById('nama-merah').innerText = dataPerlawanan.merah?.nama || "MERAH";
+            document.getElementById('club-merah').innerText = dataPerlawanan.merah?.club || "PERTUBUHAN";
+            document.getElementById('mata-merah').innerText = dataPerlawanan.merah?.mata || 0;
+            document.getElementById('binaan-merah').innerText = (dataPerlawanan.merah?.binaan || 0) + "/2";
+            document.getElementById('amaran-merah').innerText = dataPerlawanan.merah?.amaran || 0;
+            document.getElementById('berat-merah').innerText = dataPerlawanan.merah?.berat || 0;
 
-            document.getElementById('nama-biru').innerText = dataPerlawanan.biru.nama;
-            document.getElementById('club-biru').innerText = dataPerlawanan.biru.club;
-            document.getElementById('mata-biru').innerText = dataPerlawanan.biru.mata;
-            document.getElementById('binaan-biru').innerText = dataPerlawanan.biru.binaan + "/2";
-            document.getElementById('amaran-biru').innerText = dataPerlawanan.biru.amaran;
-            document.getElementById('berat-biru').innerText = dataPerlawanan.biru.berat;
+            document.getElementById('nama-biru').innerText = dataPerlawanan.biru?.nama || "BIRU";
+            document.getElementById('club-biru').innerText = dataPerlawanan.biru?.club || "PERTUBUHAN";
+            document.getElementById('mata-biru').innerText = dataPerlawanan.biru?.mata || 0;
+            document.getElementById('binaan-biru').innerText = (dataPerlawanan.biru?.binaan || 0) + "/2";
+            document.getElementById('amaran-biru').innerText = dataPerlawanan.biru?.amaran || 0;
+            document.getElementById('berat-biru').innerText = dataPerlawanan.biru?.berat || 0;
 
-            if(dataPerlawanan.logs && dataPerlawanan.logs.length > 0) {
-                document.getElementById('log-list').innerHTML = dataPerlawanan.logs.slice().reverse().map(l => `
+            if(dataPerlawanan.logs) {
+                const logsArr = Object.values(dataPerlawanan.logs).reverse();
+                document.getElementById('log-list').innerHTML = logsArr.map(l => `
                     <div class="p-2 bg-white rounded-lg border border-gray-200 flex justify-between items-center shadow-sm">
                         <span><b class="text-blue-600">[${l.pengadil}]</b> ${l.tindakan}</span>
                         <span class="text-gray-400 text-[10px]">${l.masa}</span>
                     </div>
                 `).join('');
-            } else {
-                document.getElementById('log-list').innerHTML = `<div class="text-gray-400">Menunggu pergerakan pengadil...</div>`;
             }
         }
 
         function tambahMata(sudut, mata, namaSukan) {
             const pengadil = document.getElementById('pilih-no-pengadil').value;
-            dataPerlawanan[sudut].mata += mata;
+            const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
+            db.ref(`silat_live/${sudut}`).update({ mata: mataSemasa + mata });
             tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`);
-            kemaskiniData();
         }
 
         function tambahKesalahan(sudut, jenis) {
             const pengadil = document.getElementById('pilih-no-pengadil').value;
+            let updates = {};
+
             if(jenis === 'binaan') {
-                if(dataPerlawanan[sudut].binaan < 2) dataPerlawanan[sudut].binaan += 1;
+                const b = (dataPerlawanan[sudut]?.binaan || 0) + 1;
+                updates[`silat_live/${sudut}/binaan`] = b > 2 ? 2 : b;
                 tambahLog(pengadil, `BINAAN -> ${sudut.toUpperCase()}`);
             } else if(jenis === 'amaran') {
-                dataPerlawanan[sudut].amaran += 1;
-                dataPerlawanan[sudut].mata -= 1;
+                updates[`silat_live/${sudut}/amaran`] = (dataPerlawanan[sudut]?.amaran || 0) + 1;
+                updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 1;
                 tambahLog(pengadil, `AMARAN (-1) -> ${sudut.toUpperCase()}`);
             } else if(jenis === 'berat') {
-                dataPerlawanan[sudut].berat += 1;
-                dataPerlawanan[sudut].mata -= 5;
+                updates[`silat_live/${sudut}/berat`] = (dataPerlawanan[sudut]?.berat || 0) + 1;
+                updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 5;
                 tambahLog(pengadil, `KESALAHAN BERAT (-5) -> ${sudut.toUpperCase()}`);
             }
-            kemaskiniData();
+
+            db.ref().update(updates);
         }
 
         function simpanMaklumat() {
             const fileInput = document.getElementById('upload-logo');
-            
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    dataPerlawanan.logo = e.target.result;
+                    db.ref('silat_live').update({ logo: e.target.result });
                     prosesSimpanBaki();
                 };
                 reader.readAsDataURL(fileInput.files[0]);
@@ -321,32 +273,56 @@
         }
 
         function prosesSimpanBaki() {
-            dataPerlawanan.kelas = document.getElementById('edit-kelas').value || "KELAS PERLAWANAN";
-            dataPerlawanan.merah.nama = document.getElementById('edit-nama-merah').value || "MERAH";
-            dataPerlawanan.merah.club = document.getElementById('edit-club-merah').value || "PERTUBUHAN";
-            dataPerlawanan.biru.nama = document.getElementById('edit-nama-biru').value || "BIRU";
-            dataPerlawanan.biru.club = document.getElementById('edit-club-biru').value || "PERTUBUHAN";
-            kemaskiniData();
-            alert("Maklumat & Gambar Logo berjaya dikemas kini!");
+            db.ref('silat_live').update({
+                kelas: document.getElementById('edit-kelas').value || "KELAS PERLAWANAN",
+                merah: { ...dataPerlawanan.merah, nama: document.getElementById('edit-nama-merah').value, club: document.getElementById('edit-club-merah').value },
+                biru: { ...dataPerlawanan.biru, nama: document.getElementById('edit-nama-biru').value, club: document.getElementById('edit-club-biru').value }
+            });
+            alert("Maklumat dikemas kini ke Cloud!");
         }
 
         function resetMata() {
-            if(confirm("Sahkan Reset Markah?")) {
-                dataPerlawanan.merah.mata = 0; dataPerlawanan.merah.binaan = 0; dataPerlawanan.merah.amaran = 0; dataPerlawanan.merah.berat = 0;
-                dataPerlawanan.biru.mata = 0; dataPerlawanan.biru.binaan = 0; dataPerlawanan.biru.amaran = 0; dataPerlawanan.biru.berat = 0;
-                dataPerlawanan.logs = [];
-                kemaskiniData();
+            if(confirm("Reset Markah Perlawanan Ini?")) {
+                db.ref('silat_live/merah').update({ mata: 0, binaan: 0, amaran: 0, berat: 0 });
+                db.ref('silat_live/biru').update({ mata: 0, binaan: 0, amaran: 0, berat: 0 });
+                db.ref('silat_live/logs').remove();
             }
         }
 
         function tambahLog(pengadil, tindakan) {
-            dataPerlawanan.logs.push({ pengadil, tindakan, masa: new Date().toLocaleTimeString() });
-            if(dataPerlawanan.logs.length > 15) dataPerlawanan.logs.shift();
+            db.ref('silat_live/logs').push({
+                pengadil: pengadil,
+                tindakan: tindakan,
+                masa: new Date().toLocaleTimeString()
+            });
         }
 
-        const saved = localStorage.getItem('silat_data');
-        if(saved) dataPerlawanan = JSON.parse(saved);
-        renderUI();
+        function mintaAkses(mod) {
+            if(sudahLogin) { bukaMod(mod); } 
+            else {
+                modTujuan = mod;
+                document.getElementById('input-user').value = "";
+                document.getElementById('input-pass').value = "";
+                document.getElementById('modal-login').classList.remove('hidden');
+            }
+        }
+
+        function sahkanLogin() {
+            if(document.getElementById('input-user').value === "admin" && document.getElementById('input-pass').value === "admin123") {
+                sudahLogin = true; tutupModal(); bukaMod(modTujuan);
+            } else { alert("❌ Login Salah!"); }
+        }
+
+        function tutupModal() { document.getElementById('modal-login').classList.add('hidden'); }
+
+        function bukaMod(mod) {
+            document.getElementById('mod-depan').classList.add('hidden');
+            document.getElementById('mod-pengadil').classList.add('hidden');
+            document.getElementById('mod-ketua').classList.add('hidden');
+            if(mod === 'depan') document.getElementById('mod-depan').classList.remove('hidden');
+            if(mod === 'pengadil') document.getElementById('mod-pengadil').classList.remove('hidden');
+            if(mod === 'ketua') document.getElementById('mod-ketua').classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
