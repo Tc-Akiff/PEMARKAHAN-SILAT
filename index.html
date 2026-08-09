@@ -13,10 +13,10 @@
     <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md">
         <!-- TAJUK KELAS -->
         <div class="flex items-center gap-3">
-            <!-- 🖼️ LOGO KEJOHANAN / PERSATUAN -->
+            <!-- 🖼️ LOGO KEJOHANAN / PERSATUAN (LOGO FATANI.png) -->
             <img id="logo-kejohanan" 
-                 src="https://cdn-icons-png.flaticon.com/512/1611/1611179.png" 
-                 alt="Logo" 
+                 src="LOGO FATANI.png" 
+                 alt="Logo Fatani" 
                  class="w-12 h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
             
             <div>
@@ -119,9 +119,9 @@
         <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md space-y-3">
             <h2 class="font-bold text-emerald-700 text-sm">📝 KETUA PENGADIL - KEMASKINI MAKLUMAT & LOGO</h2>
             
-            <!-- 📁 RUANGAN UPLOAD FAIL GAMBAR (JPG / PNG) -->
+            <!-- 📁 RUANGAN UPLOAD FAIL GAMBAR (OPTIONAL) -->
             <div class="bg-white p-3 rounded-xl border border-gray-200 space-y-2">
-                <label class="text-xs font-bold text-gray-700 block">📁 MUAT NAIK GAMBAR LOGO (JPG / PNG):</label>
+                <label class="text-xs font-bold text-gray-700 block">📁 MUAT NAIK LOGO LAIN (JPG / PNG):</label>
                 <input type="file" id="upload-logo" accept="image/png, image/jpeg, image/jpg" class="w-full bg-gray-50 border border-gray-300 p-1.5 rounded-lg text-xs text-gray-800 cursor-pointer">
             </div>
 
@@ -184,11 +184,11 @@
     <!-- LOGIK JAVASCRIPT -->
     <script>
         const channel = new BroadcastChannel('silat_system_channel');
-        let modTujuan = ""; // Untuk simpan lokasi modul nak pergi
-        let sudahLogin = false; // Status kelulusan login
+        let modTujuan = ""; 
+        let sudahLogin = false; 
 
         let dataPerlawanan = {
-            logo: "https://cdn-icons-png.flaticon.com/512/1611/1611179.png",
+            logo: "LOGO FATANI.png", // 👈 Tetapan asas menggunakan fail LOGO FATANI.png
             kelas: "KELAS A PUTERA",
             merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0 },
             biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0 },
@@ -196,7 +196,6 @@
         };
 
         function mintaAkses(mod) {
-            // Jika dah pernah login, terus buka tanpa tanya password lagi
             if(sudahLogin) {
                 bukaMod(mod);
             } else {
@@ -212,7 +211,6 @@
             const u = document.getElementById('input-user').value;
             const p = document.getElementById('input-pass').value;
 
-            // Semak USERNAME: admin & PASSWORD: admin123
             if(u === "admin" && p === "admin123") {
                 sudahLogin = true;
                 tutupModal();
