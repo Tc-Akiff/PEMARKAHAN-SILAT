@@ -12,18 +12,19 @@
 </head>
 <body class="bg-white text-gray-900 font-sans p-3 min-h-screen flex flex-col justify-between select-none">
 
-    <!-- HEADER, LOGO & NAVIGASI -->
+    <!-- HEADER, LOGO & MASA -->
     <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md">
         <div class="flex items-center gap-3">
-            <img id="logo-kejohanan" 
-                 src="LOGO FATANI.png" 
-                 alt="Logo Fatani" 
-                 class="w-12 h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
-            
+            <img id="logo-kejohanan" src="LOGO FATANI.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
             <div>
                 <h1 id="top-kelas" class="text-xl font-black text-gray-800 tracking-wider">KELAS A PUTERA</h1>
-                <p class="text-[10px] text-emerald-600 font-bold">🟢 FIREBASE SYNC ACTIVE</p>
+                <p id="top-round" class="text-xs font-black text-amber-600">ROUND 1 / 3</p>
             </div>
+        </div>
+
+        <!-- PAPARAN MASA UTAMA -->
+        <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-6 py-2 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
+            02:00
         </div>
 
         <div class="flex gap-2">
@@ -37,7 +38,11 @@
     <main id="mod-depan" class="max-w-5xl mx-auto w-full my-auto py-4">
         <div class="grid grid-cols-2 gap-6">
             <!-- MERAH -->
-            <div class="bg-red-50 border-4 border-red-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
+            <div id="card-merah" class="bg-red-50 border-4 border-red-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
+                <div id="badge-disq-merah" class="hidden absolute inset-0 bg-black/80 z-20 flex flex-col justify-center items-center text-red-500 font-black text-4xl tracking-widest backdrop-blur-sm">
+                    ⚠️ DISQUALIFIED
+                    <span class="text-xs text-white mt-2">(DIBATALKAN PERLAWANAN)</span>
+                </div>
                 <div class="absolute top-0 left-0 bg-red-600 text-white font-black px-4 py-1 rounded-br-2xl text-xs">SUDUT MERAH</div>
                 <h2 id="nama-merah" class="text-4xl font-black mt-2 text-red-900 tracking-wide uppercase">PESILAT MERAH</h2>
                 <p id="club-merah" class="text-base text-red-700 mt-1 uppercase font-semibold">PERTUBUHAN A</p>
@@ -45,12 +50,16 @@
                 <div class="grid grid-cols-3 gap-2 text-xs bg-white p-3 rounded-2xl border border-red-200 shadow-inner">
                     <div><p class="text-gray-500 font-bold text-[10px]">BINAAN</p><p id="binaan-merah" class="text-xl font-black text-amber-600">0/2</p></div>
                     <div><p class="text-gray-500 font-bold text-[10px]">AMARAN (-1)</p><p id="amaran-merah" class="text-xl font-black text-amber-600">0</p></div>
-                    <div><p class="text-gray-500 font-bold text-[10px]">K. BERAT (-5)</p><p id="berat-merah" class="text-xl font-black text-red-600">0</p></div>
+                    <div><p class="text-gray-500 font-bold text-[10px]">K. BERAT</p><p id="berat-merah" class="text-xl font-black text-red-600">0/3</p></div>
                 </div>
             </div>
 
             <!-- BIRU -->
-            <div class="bg-blue-50 border-4 border-blue-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
+            <div id="card-biru" class="bg-blue-50 border-4 border-blue-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
+                <div id="badge-disq-biru" class="hidden absolute inset-0 bg-black/80 z-20 flex flex-col justify-center items-center text-red-500 font-black text-4xl tracking-widest backdrop-blur-sm">
+                    ⚠️ DISQUALIFIED
+                    <span class="text-xs text-white mt-2">(DIBATALKAN PERLAWANAN)</span>
+                </div>
                 <div class="absolute top-0 left-0 bg-blue-600 text-white font-black px-4 py-1 rounded-br-2xl text-xs">SUDUT BIRU</div>
                 <h2 id="nama-biru" class="text-4xl font-black mt-2 text-blue-900 tracking-wide uppercase">PESILAT BIRU</h2>
                 <p id="club-biru" class="text-base text-blue-700 mt-1 uppercase font-semibold">PERTUBUHAN B</p>
@@ -58,7 +67,7 @@
                 <div class="grid grid-cols-3 gap-2 text-xs bg-white p-3 rounded-2xl border border-blue-200 shadow-inner">
                     <div><p class="text-gray-500 font-bold text-[10px]">BINAAN</p><p id="binaan-biru" class="text-xl font-black text-amber-600">0/2</p></div>
                     <div><p class="text-gray-500 font-bold text-[10px]">AMARAN (-1)</p><p id="amaran-biru" class="text-xl font-black text-amber-600">0</p></div>
-                    <div><p class="text-gray-500 font-bold text-[10px]">K. BERAT (-5)</p><p id="berat-biru" class="text-xl font-black text-red-600">0</p></div>
+                    <div><p class="text-gray-500 font-bold text-[10px]">K. BERAT</p><p id="berat-biru" class="text-xl font-black text-red-600">0/3</p></div>
                 </div>
             </div>
         </div>
@@ -76,6 +85,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 h-[68vh]">
+            <!-- MERAH -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
                 <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
@@ -85,9 +95,10 @@
                     <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-3 font-bold text-xs rounded-xl">BINAAN</button>
                     <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-3 font-bold text-xs rounded-xl">AMARAN (-1)</button>
                 </div>
-                <button onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <button id="btn-berat-merah" onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
             </div>
 
+            <!-- BIRU -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-blue-600 text-sm">SUDUT BIRU</p>
                 <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
@@ -97,13 +108,40 @@
                     <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-3 font-bold text-xs rounded-xl">BINAAN</button>
                     <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-3 font-bold text-xs rounded-xl">AMARAN (-1)</button>
                 </div>
-                <button onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <button id="btn-berat-biru" onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
             </div>
         </div>
     </main>
 
-    <!-- 3. KETUA PENGADIL -->
+    <!-- 3. KETUA PENGADIL (KAWAL MASA, ROUND & BATO) -->
     <main id="mod-ketua" class="hidden max-w-4xl mx-auto w-full my-auto space-y-4 py-2">
+        <!-- TETINGKAP KAWALAN MASA & ROUND -->
+        <div class="bg-gray-900 text-white p-4 rounded-2xl shadow-md border border-gray-800 space-y-3">
+            <h2 class="font-bold text-yellow-400 text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="text-[10px] text-gray-400 block font-bold">MASA SETIAP ROUND (MINIT):</label>
+                    <input type="number" id="input-minit" value="2" min="1" max="10" class="w-full bg-gray-800 border border-gray-700 p-2 rounded-xl text-yellow-400 font-bold text-sm">
+                </div>
+                <div>
+                    <label class="text-[10px] text-gray-400 block font-bold">JUMLAH ROUND:</label>
+                    <input type="number" id="input-max-round" value="3" min="1" max="5" class="w-full bg-gray-800 border border-gray-700 p-2 rounded-xl text-yellow-400 font-bold text-sm">
+                </div>
+                <div class="flex items-end">
+                    <button onclick="setTetapanMasa()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-2.5 font-black text-xs rounded-xl shadow">⚙️ SETKAN TETAPAN</button>
+                </div>
+            </div>
+
+            <!-- BUTANG MASA -->
+            <div class="flex gap-2 pt-2 border-t border-gray-800">
+                <button onclick="kawalMasa('start')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 font-black text-sm rounded-xl shadow">▶️ MULA MASA</button>
+                <button onclick="kawalMasa('pause')" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-3 font-black text-sm rounded-xl shadow">⏸️ PAUSE MASA</button>
+                <button onclick="kawalMasa('reset')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 font-bold text-xs rounded-xl shadow">🔄 RESET MASA</button>
+                <button onclick="nextRound()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 font-black text-sm rounded-xl shadow border-2 border-blue-400">⏩ NEXT ROUND</button>
+            </div>
+        </div>
+
+        <!-- TETINGKAP MAKLUMAT PESILAT -->
         <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md space-y-3">
             <h2 class="font-bold text-emerald-700 text-sm">📝 KETUA PENGADIL - KEMASKINI MAKLUMAT & LOGO</h2>
             
@@ -125,7 +163,7 @@
             </div>
             <div class="flex gap-2 pt-1">
                 <button onclick="simpanMaklumat()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 font-bold text-xs rounded-xl shadow">💾 SIMPAN & HANTAR KE MUKA DEPAN</button>
-                <button onclick="resetMata()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-xs rounded-xl shadow">🔄 RESET MARKAH</button>
+                <button onclick="resetMata()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-xs rounded-xl shadow">🔄 RESET PERLAWANAN BARU</button>
             </div>
         </div>
 
@@ -166,7 +204,7 @@
         Sistem Pemarkahan Silat Cloud © 2026
     </footer>
 
-    <!-- LOGIK FIREBASE CONFIG PROJEK AKIP -->
+    <!-- LOGIK FIREBASE CONFIG & LOGIK SUKAN SILAT -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB4WyizV5KLsu2zSwtUy3mtaFT4KaWxTI0",
@@ -185,6 +223,7 @@
         let modTujuan = ""; 
         let sudahLogin = false; 
         let dataPerlawanan = {};
+        let pemasaInterval = null;
 
         // Dengar data masa-nyata dari Firebase Cloud
         db.ref('silat_live').on('value', (snapshot) => {
@@ -193,32 +232,63 @@
                 db.ref('silat_live').set({
                     logo: "LOGO FATANI.png",
                     kelas: "KELAS A PUTERA",
-                    merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0 },
-                    biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0 }
+                    currentRound: 1,
+                    maxRound: 3,
+                    masaMinit: 2,
+                    masaSaat: 120,
+                    masaJalan: false,
+                    merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
+                    biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false }
                 });
                 return;
             }
             dataPerlawanan = data;
             renderUI();
+            kawalJamLocal();
         });
 
         function renderUI() {
             if(dataPerlawanan.logo) document.getElementById('logo-kejohanan').src = dataPerlawanan.logo;
             document.getElementById('top-kelas').innerText = dataPerlawanan.kelas || "KELAS PERLAWANAN";
+            document.getElementById('top-round').innerText = `ROUND ${dataPerlawanan.currentRound || 1} / ${dataPerlawanan.maxRound || 3}`;
+
+            // Format Masa
+            const totalS = dataPerlawanan.masaSaat !== undefined ? dataPerlawanan.masaSaat : 120;
+            const m = Math.floor(totalS / 60).toString().padStart(2, '0');
+            const s = (totalS % 60).toString().padStart(2, '0');
+            document.getElementById('papar-masa').innerText = `${m}:${s}`;
+
+            // Sudut Merah
             document.getElementById('nama-merah').innerText = dataPerlawanan.merah?.nama || "MERAH";
             document.getElementById('club-merah').innerText = dataPerlawanan.merah?.club || "PERTUBUHAN";
             document.getElementById('mata-merah').innerText = dataPerlawanan.merah?.mata || 0;
             document.getElementById('binaan-merah').innerText = (dataPerlawanan.merah?.binaan || 0) + "/2";
             document.getElementById('amaran-merah').innerText = dataPerlawanan.merah?.amaran || 0;
-            document.getElementById('berat-merah').innerText = dataPerlawanan.merah?.berat || 0;
+            document.getElementById('berat-merah').innerText = (dataPerlawanan.merah?.berat || 0) + "/3";
 
+            // Sudut Biru
             document.getElementById('nama-biru').innerText = dataPerlawanan.biru?.nama || "BIRU";
             document.getElementById('club-biru').innerText = dataPerlawanan.biru?.club || "PERTUBUHAN";
             document.getElementById('mata-biru').innerText = dataPerlawanan.biru?.mata || 0;
             document.getElementById('binaan-biru').innerText = (dataPerlawanan.biru?.binaan || 0) + "/2";
             document.getElementById('amaran-biru').innerText = dataPerlawanan.biru?.amaran || 0;
-            document.getElementById('berat-biru').innerText = dataPerlawanan.biru?.berat || 0;
+            document.getElementById('berat-biru').innerText = (dataPerlawanan.biru?.berat || 0) + "/3";
 
+            // Semak Status Disqualified
+            if(dataPerlawanan.merah?.disq) document.getElementById('badge-disq-merah').classList.remove('hidden');
+            else document.getElementById('badge-disq-merah').classList.add('hidden');
+
+            if(dataPerlawanan.biru?.disq) document.getElementById('badge-disq-biru').classList.remove('hidden');
+            else document.getElementById('badge-disq-biru').classList.add('hidden');
+
+            // Tukar Text Butang Kesalahan Berat
+            const bMerah = dataPerlawanan.merah?.berat || 0;
+            document.getElementById('btn-berat-merah').innerText = bMerah === 1 ? "KESALAHAN BERAT 2 (-10)" : (bMerah >= 2 ? "⚠️ DISQUALIFIED MERAH" : "KESALAHAN BERAT 1 (-5)");
+
+            const bBiru = dataPerlawanan.biru?.berat || 0;
+            document.getElementById('btn-berat-biru').innerText = bBiru === 1 ? "KESALAHAN BERAT 2 (-10)" : (bBiru >= 2 ? "⚠️ DISQUALIFIED BIRU" : "KESALAHAN BERAT 1 (-5)");
+
+            // Log
             if(dataPerlawanan.logs) {
                 const logsArr = Object.values(dataPerlawanan.logs).reverse();
                 document.getElementById('log-list').innerHTML = logsArr.map(l => `
@@ -230,14 +300,18 @@
             }
         }
 
+        // TAMBAH MATA
         function tambahMata(sudut, mata, namaSukan) {
+            if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
             const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
             db.ref(`silat_live/${sudut}`).update({ mata: mataSemasa + mata });
             tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`);
         }
 
+        // TAMBAH KESALAHAN & LOGIK KESALAHAN BERAT
         function tambahKesalahan(sudut, jenis) {
+            if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
             let updates = {};
 
@@ -250,12 +324,89 @@
                 updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 1;
                 tambahLog(pengadil, `AMARAN (-1) -> ${sudut.toUpperCase()}`);
             } else if(jenis === 'berat') {
-                updates[`silat_live/${sudut}/berat`] = (dataPerlawanan[sudut]?.berat || 0) + 1;
-                updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 5;
-                tambahLog(pengadil, `KESALAHAN BERAT (-5) -> ${sudut.toUpperCase()}`);
+                const bSemasa = (dataPerlawanan[sudut]?.berat || 0) + 1;
+                const mSemasa = dataPerlawanan[sudut]?.mata || 0;
+
+                if(bSemasa === 1) {
+                    updates[`silat_live/${sudut}/berat`] = 1;
+                    updates[`silat_live/${sudut}/mata`] = mSemasa - 5;
+                    tambahLog(pengadil, `KESALAHAN BERAT 1 (-5) -> ${sudut.toUpperCase()}`);
+                } else if(bSemasa === 2) {
+                    updates[`silat_live/${sudut}/berat`] = 2;
+                    updates[`silat_live/${sudut}/mata`] = mSemasa - 10;
+                    tambahLog(pengadil, `KESALAHAN BERAT 2 (-10) -> ${sudut.toUpperCase()}`);
+                } else if(bSemasa >= 3) {
+                    updates[`silat_live/${sudut}/berat`] = 3;
+                    updates[`silat_live/${sudut}/disq`] = true;
+                    tambahLog(pengadil, `🚨 DISQUALIFIED (BATAL PERLAWANAN) -> ${sudut.toUpperCase()}`);
+                }
             }
 
             db.ref().update(updates);
+        }
+
+        // KAWALAN MASA & ROUND OLEH KETUA PENGADIL
+        function setTetapanMasa() {
+            const m = parseInt(document.getElementById('input-minit').value) || 2;
+            const maxR = parseInt(document.getElementById('input-max-round').value) || 3;
+            db.ref('silat_live').update({
+                masaMinit: m,
+                masaSaat: m * 60,
+                maxRound: maxR,
+                masaJalan: false
+            });
+            alert("Tetapan Masa & Round Dikemas Kini!");
+        }
+
+        function kawalMasa(arahan) {
+            if(arahan === 'start') db.ref('silat_live').update({ masaJalan: true });
+            if(arahan === 'pause') db.ref('silat_live').update({ masaJalan: false });
+            if(arahan === 'reset') {
+                const s = (dataPerlawanan.masaMinit || 2) * 60;
+                db.ref('silat_live').update({ masaSaat: s, masaJalan: false });
+            }
+        }
+
+        // NEXT ROUND (RESET BINAAN & AMARAN, KEKAL KESALAHAN BERAT)
+        function nextRound() {
+            const rSemasa = dataPerlawanan.currentRound || 1;
+            const maxR = dataPerlawanan.maxRound || 3;
+
+            if(rSemasa >= maxR) return alert("Ini sudah Round Terakhir!");
+
+            if(confirm(`Sahkan ke ROUND ${rSemasa + 1}? Binaan & Amaran akan direset 0. Markah & Kesalahan Berat KEKAL.`)) {
+                const m = dataPerlawanan.masaMinit || 2;
+                db.ref('silat_live').update({
+                    currentRound: rSemasa + 1,
+                    masaSaat: m * 60,
+                    masaJalan: false,
+                    'merah/binaan': 0,
+                    'merah/amaran': 0,
+                    'biru/binaan': 0,
+                    'biru/amaran': 0
+                });
+                tambahLog("KETUA PENGADIL", `⏩ BERPINDAH KE ROUND ${rSemasa + 1}`);
+            }
+        }
+
+        // PENIMER BERGERAK
+        function kawalJamLocal() {
+            if(dataPerlawanan.masaJalan && !pemasaInterval) {
+                pemasaInterval = setInterval(() => {
+                    if(dataPerlawanan.masaSaat > 0) {
+                        dataPerlawanan.masaSaat--;
+                        db.ref('silat_live').update({ masaSaat: dataPerlawanan.masaSaat });
+                    } else {
+                        clearInterval(pemasaInterval);
+                        pemasaInterval = null;
+                        db.ref('silat_live').update({ masaJalan: false });
+                        alert("🔔 MASA TAMAT!");
+                    }
+                }, 1000);
+            } else if(!dataPerlawanan.masaJalan && pemasaInterval) {
+                clearInterval(pemasaInterval);
+                pemasaInterval = null;
+            }
         }
 
         function simpanMaklumat() {
@@ -282,10 +433,20 @@
         }
 
         function resetMata() {
-            if(confirm("Reset Markah Perlawanan Ini?")) {
-                db.ref('silat_live/merah').update({ mata: 0, binaan: 0, amaran: 0, berat: 0 });
-                db.ref('silat_live/biru').update({ mata: 0, binaan: 0, amaran: 0, berat: 0 });
-                db.ref('silat_live/logs').remove();
+            if(confirm("Lakukan RESET SEMUA untuk memulakan perlawanan BAHARU?")) {
+                const m = dataPerlawanan.masaMinit || 2;
+                db.ref('silat_live').set({
+                    logo: dataPerlawanan.logo || "LOGO FATANI.png",
+                    kelas: dataPerlawanan.kelas || "KELAS A PUTERA",
+                    currentRound: 1,
+                    maxRound: dataPerlawanan.maxRound || 3,
+                    masaMinit: m,
+                    masaSaat: m * 60,
+                    masaJalan: false,
+                    merah: { nama: dataPerlawanan.merah?.nama || "PESILAT MERAH", club: dataPerlawanan.merah?.club || "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
+                    biru: { nama: dataPerlawanan.biru?.nama || "PESILAT BIRU", club: dataPerlawanan.biru?.club || "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
+                    logs: []
+                });
             }
         }
 
