@@ -22,7 +22,6 @@
             </div>
         </div>
 
-        <!-- PAPARAN MASA UTAMA -->
         <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-6 py-2 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
             02:00
         </div>
@@ -113,9 +112,9 @@
         </div>
     </main>
 
-    <!-- 3. KETUA PENGADIL (KAWAL MASA, ROUND & BATO) -->
+    <!-- 3. KETUA PENGADIL -->
     <main id="mod-ketua" class="hidden max-w-4xl mx-auto w-full my-auto space-y-4 py-2">
-        <!-- TETINGKAP KAWALAN MASA & ROUND -->
+        <!-- KAWALAN MASA & ROUND -->
         <div class="bg-gray-900 text-white p-4 rounded-2xl shadow-md border border-gray-800 space-y-3">
             <h2 class="font-bold text-yellow-400 text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
             <div class="grid grid-cols-3 gap-3">
@@ -132,7 +131,6 @@
                 </div>
             </div>
 
-            <!-- BUTANG MASA -->
             <div class="flex gap-2 pt-2 border-t border-gray-800">
                 <button onclick="kawalMasa('start')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 font-black text-sm rounded-xl shadow">▶️ MULA MASA</button>
                 <button onclick="kawalMasa('pause')" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-3 font-black text-sm rounded-xl shadow">⏸️ PAUSE MASA</button>
@@ -141,7 +139,7 @@
             </div>
         </div>
 
-        <!-- TETINGKAP MAKLUMAT PESILAT -->
+        <!-- MAKLUMAT PESILAT -->
         <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md space-y-3">
             <h2 class="font-bold text-emerald-700 text-sm">📝 KETUA PENGADIL - KEMASKINI MAKLUMAT & LOGO</h2>
             
@@ -163,14 +161,25 @@
             </div>
             <div class="flex gap-2 pt-1">
                 <button onclick="simpanMaklumat()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 font-bold text-xs rounded-xl shadow">💾 SIMPAN & HANTAR KE MUKA DEPAN</button>
-                <button onclick="resetMata()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-xs rounded-xl shadow">🔄 RESET PERLAWANAN BARU</button>
+                <button onclick="resetMata()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-xs rounded-xl shadow">🔄 SIMPAN ARKIB & PERLAWANAN BARU</button>
             </div>
         </div>
 
-        <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md">
-            <h3 class="font-bold text-gray-800 text-xs mb-2">📡 REKOD TEKANAN PENGADIL (LIVE LOG)</h3>
-            <div id="log-list" class="space-y-1.5 max-h-40 overflow-y-auto text-xs font-mono text-gray-700">
-                <div class="text-gray-400">Menunggu pergerakan pengadil...</div>
+        <div class="grid grid-cols-2 gap-4">
+            <!-- REKOD LOG LIVE -->
+            <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md">
+                <h3 class="font-bold text-gray-800 text-xs mb-2">📡 LIVE LOG PERLAWANAN SEMASA</h3>
+                <div id="log-list" class="space-y-1.5 max-h-48 overflow-y-auto text-xs font-mono text-gray-700">
+                    <div class="text-gray-400">Menunggu pergerakan pengadil...</div>
+                </div>
+            </div>
+
+            <!-- SENARAI ARKIB PERLAWANAN TERDAHULU -->
+            <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md">
+                <h3 class="font-bold text-emerald-800 text-xs mb-2">📜 REKOD PERLAWANAN TERDAHULU (ARKIB)</h3>
+                <div id="arkib-list" class="space-y-2 max-h-48 overflow-y-auto text-xs">
+                    <div class="text-gray-400">Tiada rekod arkib lagi...</div>
+                </div>
             </div>
         </div>
     </main>
@@ -200,11 +209,30 @@
         </div>
     </div>
 
+    <!-- POPUP PAPAR ARKIB DETAIL PERLAWANAN -->
+    <div id="modal-arkib" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center p-4 z-50">
+        <div class="bg-white p-6 rounded-3xl max-w-lg w-full border border-gray-200 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 id="arkib-tajuk" class="font-black text-gray-900 text-sm">REKOD PERLAWANAN</h3>
+                <button onclick="tutupArkib()" class="text-gray-400 hover:text-black font-bold">✕</button>
+            </div>
+            <div id="arkib-detail-mata" class="grid grid-cols-2 gap-2 text-center text-xs p-3 bg-gray-100 rounded-xl font-bold">
+                <!-- Data Skor Akhir -->
+            </div>
+            <div class="space-y-1">
+                <p class="text-xs font-bold text-gray-700">LOG PERGERAKAN PENGADIL (ROUND BY ROUND):</p>
+                <div id="arkib-detail-logs" class="space-y-1 max-h-60 overflow-y-auto text-xs font-mono p-2 bg-gray-50 rounded-xl border border-gray-200">
+                </div>
+            </div>
+            <button onclick="tutupArkib()" class="w-full bg-gray-800 text-white py-2 rounded-xl font-bold text-xs">Tutup</button>
+        </div>
+    </div>
+
     <footer class="text-center text-[10px] text-gray-500 py-1 font-bold">
         Sistem Pemarkahan Silat Cloud © 2026
     </footer>
 
-    <!-- LOGIK FIREBASE CONFIG & LOGIK SUKAN SILAT -->
+    <!-- LOGIK JAVASCRIPT & ARKIB -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB4WyizV5KLsu2zSwtUy3mtaFT4KaWxTI0",
@@ -224,6 +252,7 @@
         let sudahLogin = false; 
         let dataPerlawanan = {};
         let pemasaInterval = null;
+        let dataArkibSemua = {};
 
         // Dengar data masa-nyata dari Firebase Cloud
         db.ref('silat_live').on('value', (snapshot) => {
@@ -247,18 +276,34 @@
             kawalJamLocal();
         });
 
+        // Dengar Senarai Arkib Terdahulu
+        db.ref('silat_arkib').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if(!data) return;
+            dataArkibSemua = data;
+            
+            const listArr = Object.entries(data).reverse();
+            document.getElementById('arkib-list').innerHTML = listArr.map(([key, item]) => `
+                <div onclick="bukaArkibDetail('${key}')" class="p-2.5 bg-white border border-gray-200 hover:border-emerald-500 rounded-xl cursor-pointer shadow-sm transition flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-gray-800 text-[11px]">${item.merah.nama} vs ${item.biru.nama}</p>
+                        <p class="text-[9px] text-gray-400">${item.kelas} • ${item.tarikh}</p>
+                    </div>
+                    <span class="font-black text-xs text-emerald-600">${item.merah.mata} - ${item.biru.mata}</span>
+                </div>
+            `).join('');
+        });
+
         function renderUI() {
             if(dataPerlawanan.logo) document.getElementById('logo-kejohanan').src = dataPerlawanan.logo;
             document.getElementById('top-kelas').innerText = dataPerlawanan.kelas || "KELAS PERLAWANAN";
             document.getElementById('top-round').innerText = `ROUND ${dataPerlawanan.currentRound || 1} / ${dataPerlawanan.maxRound || 3}`;
 
-            // Format Masa
             const totalS = dataPerlawanan.masaSaat !== undefined ? dataPerlawanan.masaSaat : 120;
             const m = Math.floor(totalS / 60).toString().padStart(2, '0');
             const s = (totalS % 60).toString().padStart(2, '0');
             document.getElementById('papar-masa').innerText = `${m}:${s}`;
 
-            // Sudut Merah
             document.getElementById('nama-merah').innerText = dataPerlawanan.merah?.nama || "MERAH";
             document.getElementById('club-merah').innerText = dataPerlawanan.merah?.club || "PERTUBUHAN";
             document.getElementById('mata-merah').innerText = dataPerlawanan.merah?.mata || 0;
@@ -266,7 +311,6 @@
             document.getElementById('amaran-merah').innerText = dataPerlawanan.merah?.amaran || 0;
             document.getElementById('berat-merah').innerText = (dataPerlawanan.merah?.berat || 0) + "/3";
 
-            // Sudut Biru
             document.getElementById('nama-biru').innerText = dataPerlawanan.biru?.nama || "BIRU";
             document.getElementById('club-biru').innerText = dataPerlawanan.biru?.club || "PERTUBUHAN";
             document.getElementById('mata-biru').innerText = dataPerlawanan.biru?.mata || 0;
@@ -274,33 +318,31 @@
             document.getElementById('amaran-biru').innerText = dataPerlawanan.biru?.amaran || 0;
             document.getElementById('berat-biru').innerText = (dataPerlawanan.biru?.berat || 0) + "/3";
 
-            // Semak Status Disqualified
             if(dataPerlawanan.merah?.disq) document.getElementById('badge-disq-merah').classList.remove('hidden');
             else document.getElementById('badge-disq-merah').classList.add('hidden');
 
             if(dataPerlawanan.biru?.disq) document.getElementById('badge-disq-biru').classList.remove('hidden');
             else document.getElementById('badge-disq-biru').classList.add('hidden');
 
-            // Tukar Text Butang Kesalahan Berat
             const bMerah = dataPerlawanan.merah?.berat || 0;
             document.getElementById('btn-berat-merah').innerText = bMerah === 1 ? "KESALAHAN BERAT 2 (-10)" : (bMerah >= 2 ? "⚠️ DISQUALIFIED MERAH" : "KESALAHAN BERAT 1 (-5)");
 
             const bBiru = dataPerlawanan.biru?.berat || 0;
             document.getElementById('btn-berat-biru').innerText = bBiru === 1 ? "KESALAHAN BERAT 2 (-10)" : (bBiru >= 2 ? "⚠️ DISQUALIFIED BIRU" : "KESALAHAN BERAT 1 (-5)");
 
-            // Log
             if(dataPerlawanan.logs) {
                 const logsArr = Object.values(dataPerlawanan.logs).reverse();
                 document.getElementById('log-list').innerHTML = logsArr.map(l => `
                     <div class="p-2 bg-white rounded-lg border border-gray-200 flex justify-between items-center shadow-sm">
-                        <span><b class="text-blue-600">[${l.pengadil}]</b> ${l.tindakan}</span>
+                        <span><b class="text-amber-600">[R${l.round || 1}]</b> <b class="text-blue-600">[${l.pengadil}]</b> ${l.tindakan}</span>
                         <span class="text-gray-400 text-[10px]">${l.masa}</span>
                     </div>
                 `).join('');
+            } else {
+                document.getElementById('log-list').innerHTML = `<div class="text-gray-400">Menunggu pergerakan pengadil...</div>`;
             }
         }
 
-        // TAMBAH MATA
         function tambahMata(sudut, mata, namaSukan) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
@@ -309,7 +351,6 @@
             tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`);
         }
 
-        // TAMBAH KESALAHAN & LOGIK KESALAHAN BERAT
         function tambahKesalahan(sudut, jenis) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
@@ -345,7 +386,6 @@
             db.ref().update(updates);
         }
 
-        // KAWALAN MASA & ROUND OLEH KETUA PENGADIL
         function setTetapanMasa() {
             const m = parseInt(document.getElementById('input-minit').value) || 2;
             const maxR = parseInt(document.getElementById('input-max-round').value) || 3;
@@ -367,7 +407,6 @@
             }
         }
 
-        // NEXT ROUND (RESET BINAAN & AMARAN, KEKAL KESALAHAN BERAT)
         function nextRound() {
             const rSemasa = dataPerlawanan.currentRound || 1;
             const maxR = dataPerlawanan.maxRound || 3;
@@ -389,7 +428,6 @@
             }
         }
 
-        // PENIMER BERGERAK
         function kawalJamLocal() {
             if(dataPerlawanan.masaJalan && !pemasaInterval) {
                 pemasaInterval = setInterval(() => {
@@ -432,8 +470,17 @@
             alert("Maklumat dikemas kini ke Cloud!");
         }
 
+        // RESET & SIMPAN REKOD ARKIB AUTOMATIK
         function resetMata() {
-            if(confirm("Lakukan RESET SEMUA untuk memulakan perlawanan BAHARU?")) {
+            if(confirm("Lakukan RESET? Perlawanan semasa akan DISIMPAN AUTOMATIK ke Arkib!")) {
+                // Simpan ke Firebase Arkib
+                const arkibRef = db.ref('silat_arkib').push();
+                arkibRef.set({
+                    ...dataPerlawanan,
+                    tarikh: new Date().toLocaleString()
+                });
+
+                // Reset perlawanan baru
                 const m = dataPerlawanan.masaMinit || 2;
                 db.ref('silat_live').set({
                     logo: dataPerlawanan.logo || "LOGO FATANI.png",
@@ -443,20 +490,58 @@
                     masaMinit: m,
                     masaSaat: m * 60,
                     masaJalan: false,
-                    merah: { nama: dataPerlawanan.merah?.nama || "PESILAT MERAH", club: dataPerlawanan.merah?.club || "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
-                    biru: { nama: dataPerlawanan.biru?.nama || "PESILAT BIRU", club: dataPerlawanan.biru?.club || "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
+                    merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
+                    biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
                     logs: []
                 });
+                alert("Perlawanan lama berjaya disimpan dalam Arkib!");
             }
         }
 
         function tambahLog(pengadil, tindakan) {
             db.ref('silat_live/logs').push({
+                round: dataPerlawanan.currentRound || 1,
                 pengadil: pengadil,
                 tindakan: tindakan,
                 masa: new Date().toLocaleTimeString()
             });
         }
+
+        // FUNGSI TENGOK DETAIL ARKIB
+        function bukaArkibDetail(key) {
+            const item = dataArkibSemua[key];
+            if(!item) return;
+
+            document.getElementById('arkib-tajuk').innerText = `${item.kelas} (${item.tarikh})`;
+            document.getElementById('arkib-detail-mata').innerHTML = `
+                <div class="bg-red-100 text-red-800 p-2 rounded-lg">
+                    <p class="font-black text-sm">${item.merah.nama}</p>
+                    <p class="text-2xl font-black">${item.merah.mata}</p>
+                    <p class="text-[9px]">Kesalahan Berat: ${item.merah.berat || 0}</p>
+                </div>
+                <div class="bg-blue-100 text-blue-800 p-2 rounded-lg">
+                    <p class="font-black text-sm">${item.biru.nama}</p>
+                    <p class="text-2xl font-black">${item.biru.mata}</p>
+                    <p class="text-[9px]">Kesalahan Berat: ${item.biru.berat || 0}</p>
+                </div>
+            `;
+
+            if(item.logs) {
+                const logsArr = Object.values(item.logs);
+                document.getElementById('arkib-detail-logs').innerHTML = logsArr.map(l => `
+                    <div class="p-1.5 bg-white rounded border border-gray-200 flex justify-between">
+                        <span><b>[ROUND ${l.round || 1}]</b> <b>[${l.pengadil}]</b> ${l.tindakan}</span>
+                        <span class="text-gray-400 text-[9px]">${l.masa}</span>
+                    </div>
+                `).join('');
+            } else {
+                document.getElementById('arkib-detail-logs').innerHTML = `<div class="text-gray-400">Tiada log dirakam.</div>`;
+            }
+
+            document.getElementById('modal-arkib').classList.remove('hidden');
+        }
+
+        function tutupArkib() { document.getElementById('modal-arkib').classList.add('hidden'); }
 
         function mintaAkses(mod) {
             if(sudahLogin) { bukaMod(mod); } 
