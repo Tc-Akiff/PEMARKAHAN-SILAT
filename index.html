@@ -176,7 +176,10 @@
 
             <!-- SENARAI ARKIB PERLAWANAN TERDAHULU -->
             <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md">
-                <h3 class="font-bold text-emerald-800 text-xs mb-2">📜 REKOD PERLAWANAN TERDAHULU (ARKIB)</h3>
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-emerald-800 text-xs">📜 REKOD PERLAWANAN TERDAHULU (ARKIB)</h3>
+                    <button onclick="padamSemuaArkib()" class="text-[10px] text-red-600 hover:text-red-800 font-bold bg-red-100 px-2 py-0.5 rounded-lg">🗑️ Padam Semua</button>
+                </div>
                 <div id="arkib-list" class="space-y-2 max-h-48 overflow-y-auto text-xs">
                     <div class="text-gray-400">Tiada rekod arkib lagi...</div>
                 </div>
@@ -217,14 +220,16 @@
                 <button onclick="tutupArkib()" class="text-gray-400 hover:text-black font-bold">✕</button>
             </div>
             <div id="arkib-detail-mata" class="grid grid-cols-2 gap-2 text-center text-xs p-3 bg-gray-100 rounded-xl font-bold">
-                <!-- Data Skor Akhir -->
             </div>
             <div class="space-y-1">
                 <p class="text-xs font-bold text-gray-700">LOG PERGERAKAN PENGADIL (ROUND BY ROUND):</p>
                 <div id="arkib-detail-logs" class="space-y-1 max-h-60 overflow-y-auto text-xs font-mono p-2 bg-gray-50 rounded-xl border border-gray-200">
                 </div>
             </div>
-            <button onclick="tutupArkib()" class="w-full bg-gray-800 text-white py-2 rounded-xl font-bold text-xs">Tutup</button>
+            <div class="flex gap-2">
+                <button id="btn-delete-current-arkib" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl font-bold text-xs">🗑️ Padam Rekod Ini</button>
+                <button onclick="tutupArkib()" class="flex-1 bg-gray-800 text-white py-2 rounded-xl font-bold text-xs">Tutup</button>
+            </div>
         </div>
     </div>
 
@@ -253,6 +258,7 @@
         let dataPerlawanan = {};
         let pemasaInterval = null;
         let dataArkibSemua = {};
+        let currentArkibKey = null;
 
         // Dengar data masa-nyata dari Firebase Cloud
         db.ref('silat_live').on('value', (snapshot) => {
@@ -279,17 +285,24 @@
         // Dengar Senarai Arkib Terdahulu
         db.ref('silat_arkib').on('value', (snapshot) => {
             const data = snapshot.val();
-            if(!data) return;
+            if(!data) {
+                dataArkibSemua = {};
+                document.getElementById('arkib-list').innerHTML = `<div class="text-gray-400">Tiada rekod arkib...</div>`;
+                return;
+            }
             dataArkibSemua = data;
             
             const listArr = Object.entries(data).reverse();
             document.getElementById('arkib-list').innerHTML = listArr.map(([key, item]) => `
-                <div onclick="bukaArkibDetail('${key}')" class="p-2.5 bg-white border border-gray-200 hover:border-emerald-500 rounded-xl cursor-pointer shadow-sm transition flex justify-between items-center">
-                    <div>
+                <div class="p-2.5 bg-white border border-gray-200 rounded-xl shadow-sm flex justify-between items-center">
+                    <div onclick="bukaArkibDetail('${key}')" class="cursor-pointer flex-1">
                         <p class="font-bold text-gray-800 text-[11px]">${item.merah.nama} vs ${item.biru.nama}</p>
                         <p class="text-[9px] text-gray-400">${item.kelas} • ${item.tarikh}</p>
                     </div>
-                    <span class="font-black text-xs text-emerald-600">${item.merah.mata} - ${item.biru.mata}</span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-black text-xs text-emerald-600 mr-1">${item.merah.mata} - ${item.biru.mata}</span>
+                        <button onclick="padamSatuArkib('${key}')" class="text-gray-400 hover:text-red-600 p-1 text-xs">🗑️</button>
+                    </div>
                 </div>
             `).join('');
         });
@@ -470,17 +483,14 @@
             alert("Maklumat dikemas kini ke Cloud!");
         }
 
-        // RESET & SIMPAN REKOD ARKIB AUTOMATIK
         function resetMata() {
             if(confirm("Lakukan RESET? Perlawanan semasa akan DISIMPAN AUTOMATIK ke Arkib!")) {
-                // Simpan ke Firebase Arkib
                 const arkibRef = db.ref('silat_arkib').push();
                 arkibRef.set({
                     ...dataPerlawanan,
                     tarikh: new Date().toLocaleString()
                 });
 
-                // Reset perlawanan baru
                 const m = dataPerlawanan.masaMinit || 2;
                 db.ref('silat_live').set({
                     logo: dataPerlawanan.logo || "LOGO FATANI.png",
@@ -507,8 +517,9 @@
             });
         }
 
-        // FUNGSI TENGOK DETAIL ARKIB
+        // FUNGSI TENGOK DETAIL ARKIB & DELETE
         function bukaArkibDetail(key) {
+            currentArkibKey = key;
             const item = dataArkibSemua[key];
             if(!item) return;
 
@@ -538,7 +549,27 @@
                 document.getElementById('arkib-detail-logs').innerHTML = `<div class="text-gray-400">Tiada log dirakam.</div>`;
             }
 
+            document.getElementById('btn-delete-current-arkib').onclick = function() {
+                padamSatuArkib(key);
+                tutupArkib();
+            };
+
             document.getElementById('modal-arkib').classList.remove('hidden');
+        }
+
+        // FUNGSI PADAM ARKIB
+        function padamSatuArkib(key) {
+            if(confirm("Sahkan untuk PADAM rekod perlawanan ini dari Arkib?")) {
+                db.ref(`silat_arkib/${key}`).remove();
+                alert("Rekod berjaya dipadam!");
+            }
+        }
+
+        function padamSemuaArkib() {
+            if(confirm("🚨 AMARAN: Adakah anda pasti mahu MEMADAM SEMUA REKOD ARKIB? Tindakan ini tidak boleh diundurkan!")) {
+                db.ref('silat_arkib').remove();
+                alert("Semua rekod arkib telah dipadam!");
+            }
         }
 
         function tutupArkib() { document.getElementById('modal-arkib').classList.add('hidden'); }
