@@ -87,27 +87,31 @@
             <!-- MERAH -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
-                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-2xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
+                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
+                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
+                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-3 font-bold text-xs rounded-xl">BINAAN</button>
-                    <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-3 font-bold text-xs rounded-xl">AMARAN (-1)</button>
+                    <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
+                    <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
                 </div>
-                <button id="btn-berat-merah" onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <button id="btn-berat-merah" onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-2 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <!-- BUTANG UNDO MERAH -->
+                <button onclick="undoMata('merah')" class="bg-gray-800 hover:bg-gray-900 text-yellow-400 border border-gray-700 py-2.5 font-black text-xs rounded-xl shadow">↩️ UNDO (BATAL MERAH)</button>
             </div>
 
             <!-- BIRU -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-blue-600 text-sm">SUDUT BIRU</p>
-                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
+                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
+                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
+                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-3 font-bold text-xs rounded-xl">BINAAN</button>
-                    <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-3 font-bold text-xs rounded-xl">AMARAN (-1)</button>
+                    <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
+                    <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
                 </div>
-                <button id="btn-berat-biru" onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-3 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <button id="btn-berat-biru" onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-2 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <!-- BUTANG UNDO BIRU -->
+                <button onclick="undoMata('biru')" class="bg-gray-800 hover:bg-gray-900 text-yellow-400 border border-gray-700 py-2.5 font-black text-xs rounded-xl shadow">↩️ UNDO (BATAL BIRU)</button>
             </div>
         </div>
     </main>
@@ -116,7 +120,10 @@
     <main id="mod-ketua" class="hidden max-w-4xl mx-auto w-full my-auto space-y-4 py-2">
         <!-- KAWALAN MASA & ROUND -->
         <div class="bg-gray-900 text-white p-4 rounded-2xl shadow-md border border-gray-800 space-y-3">
-            <h2 class="font-bold text-yellow-400 text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
+            <div class="flex justify-between items-center">
+                <h2 class="font-bold text-yellow-400 text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
+                <button onclick="mainkanSiren()" class="bg-gray-800 hover:bg-gray-700 text-yellow-400 text-[10px] px-3 py-1 rounded-lg border border-gray-700 font-bold">🔊 UJI BUNYI SIREN</button>
+            </div>
             <div class="grid grid-cols-3 gap-3">
                 <div>
                     <label class="text-[10px] text-gray-400 block font-bold">MASA SETIAP ROUND (MINIT):</label>
@@ -237,7 +244,7 @@
         Sistem Pemarkahan Silat Cloud © 2026
     </footer>
 
-    <!-- LOGIK JAVASCRIPT & ARKIB -->
+    <!-- LOGIK JAVASCRIPT, FIREBASE, SIREN & UNDO -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB4WyizV5KLsu2zSwtUy3mtaFT4KaWxTI0",
@@ -259,6 +266,30 @@
         let pemasaInterval = null;
         let dataArkibSemua = {};
         let currentArkibKey = null;
+
+        // FUNGSI SIREN AUTOMATIK
+        function mainkanSiren() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 1.2);
+                
+                gain.gain.setValueAtTime(1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.2);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+            } catch(e) {
+                console.log("Audio diblok oleh pelayar web.");
+            }
+        }
 
         // Dengar data masa-nyata dari Firebase Cloud
         db.ref('silat_live').on('value', (snapshot) => {
@@ -361,7 +392,7 @@
             const pengadil = document.getElementById('pilih-no-pengadil').value;
             const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
             db.ref(`silat_live/${sudut}`).update({ mata: mataSemasa + mata });
-            tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`);
+            tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
         }
 
         function tambahKesalahan(sudut, jenis) {
@@ -372,11 +403,11 @@
             if(jenis === 'binaan') {
                 const b = (dataPerlawanan[sudut]?.binaan || 0) + 1;
                 updates[`silat_live/${sudut}/binaan`] = b > 2 ? 2 : b;
-                tambahLog(pengadil, `BINAAN -> ${sudut.toUpperCase()}`);
+                tambahLog(pengadil, `BINAAN -> ${sudut.toUpperCase()}`, sudut, 'binaan', 1);
             } else if(jenis === 'amaran') {
                 updates[`silat_live/${sudut}/amaran`] = (dataPerlawanan[sudut]?.amaran || 0) + 1;
                 updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 1;
-                tambahLog(pengadil, `AMARAN (-1) -> ${sudut.toUpperCase()}`);
+                tambahLog(pengadil, `AMARAN (-1) -> ${sudut.toUpperCase()}`, sudut, 'amaran', 1);
             } else if(jenis === 'berat') {
                 const bSemasa = (dataPerlawanan[sudut]?.berat || 0) + 1;
                 const mSemasa = dataPerlawanan[sudut]?.mata || 0;
@@ -384,19 +415,68 @@
                 if(bSemasa === 1) {
                     updates[`silat_live/${sudut}/berat`] = 1;
                     updates[`silat_live/${sudut}/mata`] = mSemasa - 5;
-                    tambahLog(pengadil, `KESALAHAN BERAT 1 (-5) -> ${sudut.toUpperCase()}`);
+                    tambahLog(pengadil, `KESALAHAN BERAT 1 (-5) -> ${sudut.toUpperCase()}`, sudut, 'berat', 1);
                 } else if(bSemasa === 2) {
                     updates[`silat_live/${sudut}/berat`] = 2;
                     updates[`silat_live/${sudut}/mata`] = mSemasa - 10;
-                    tambahLog(pengadil, `KESALAHAN BERAT 2 (-10) -> ${sudut.toUpperCase()}`);
+                    tambahLog(pengadil, `KESALAHAN BERAT 2 (-10) -> ${sudut.toUpperCase()}`, sudut, 'berat', 2);
                 } else if(bSemasa >= 3) {
                     updates[`silat_live/${sudut}/berat`] = 3;
                     updates[`silat_live/${sudut}/disq`] = true;
-                    tambahLog(pengadil, `🚨 DISQUALIFIED (BATAL PERLAWANAN) -> ${sudut.toUpperCase()}`);
+                    tambahLog(pengadil, `🚨 DISQUALIFIED (BATAL PERLAWANAN) -> ${sudut.toUpperCase()}`, sudut, 'berat', 3);
                 }
             }
 
             db.ref().update(updates);
+        }
+
+        // FUNGSI UNDO (BATAL MARKAH / KESALAHAN TERAKHIR)
+        function undoMata(sudut) {
+            if(!dataPerlawanan.logs) return alert("Tiada pergerakan untuk di-undo!");
+
+            const logsEntries = Object.entries(dataPerlawanan.logs);
+            // Cari log terakhir untuk sudut yang dipanggil
+            let lastKey = null;
+            let lastLog = null;
+
+            for(let i = logsEntries.length - 1; i >= 0; i--) {
+                if(logsEntries[i][1].targetSudut === sudut) {
+                    lastKey = logsEntries[i][0];
+                    lastLog = logsEntries[i][1];
+                    break;
+                }
+            }
+
+            if(!lastKey || !lastLog) return alert(`Tiada rekod tindakan terakhir untuk Sudut ${sudut.toUpperCase()}!`);
+
+            if(confirm(`Sahkan BATAL (UNDO) pergerakan terakhir: "${lastLog.tindakan}"?`)) {
+                let updates = {};
+
+                if(lastLog.jenisAction === 'mata') {
+                    updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - lastLog.nilai;
+                } else if(lastLog.jenisAction === 'binaan') {
+                    const b = (dataPerlawanan[sudut]?.binaan || 0) - 1;
+                    updates[`silat_live/${sudut}/binaan`] = b < 0 ? 0 : b;
+                } else if(lastLog.jenisAction === 'amaran') {
+                    const a = (dataPerlawanan[sudut]?.amaran || 0) - 1;
+                    updates[`silat_live/${sudut}/amaran`] = a < 0 ? 0 : a;
+                    updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 1; // tambah balik mata yang ditolak amaran
+                } else if(lastLog.jenisAction === 'berat') {
+                    const b = (dataPerlawanan[sudut]?.berat || 0) - 1;
+                    updates[`silat_live/${sudut}/berat`] = b < 0 ? 0 : b;
+                    updates[`silat_live/${sudut}/disq`] = false; // Batal status disq jika ada
+
+                    if(lastLog.nilai === 1) updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 5;
+                    if(lastLog.nilai === 2) updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 10;
+                }
+
+                // Padam log tersebut dari database
+                db.ref(`silat_live/logs/${lastKey}`).remove();
+                db.ref().update(updates);
+                
+                const pengadil = document.getElementById('pilih-no-pengadil').value;
+                tambahLog(pengadil, `↩️ UNDO: ${lastLog.tindakan}`);
+            }
         }
 
         function setTetapanMasa() {
@@ -451,6 +531,7 @@
                         clearInterval(pemasaInterval);
                         pemasaInterval = null;
                         db.ref('silat_live').update({ masaJalan: false });
+                        mainkanSiren(); // Mainkan bunyi wisel/siren automatik
                         alert("🔔 MASA TAMAT!");
                     }
                 }, 1000);
@@ -508,16 +589,18 @@
             }
         }
 
-        function tambahLog(pengadil, tindakan) {
+        function tambahLog(pengadil, tindakan, targetSudut = "", jenisAction = "", nilai = 0) {
             db.ref('silat_live/logs').push({
                 round: dataPerlawanan.currentRound || 1,
                 pengadil: pengadil,
                 tindakan: tindakan,
+                targetSudut: targetSudut,
+                jenisAction: jenisAction,
+                nilai: nilai,
                 masa: new Date().toLocaleTimeString()
             });
         }
 
-        // FUNGSI TENGOK DETAIL ARKIB & DELETE
         function bukaArkibDetail(key) {
             currentArkibKey = key;
             const item = dataArkibSemua[key];
@@ -557,7 +640,6 @@
             document.getElementById('modal-arkib').classList.remove('hidden');
         }
 
-        // FUNGSI PADAM ARKIB
         function padamSatuArkib(key) {
             if(confirm("Sahkan untuk PADAM rekod perlawanan ini dari Arkib?")) {
                 db.ref(`silat_arkib/${key}`).remove();
