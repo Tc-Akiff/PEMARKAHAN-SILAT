@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pemarkahan Silat Digital Cloud</title>
+    <title>Sistem Pemarkahan Silat Digital Multi-Gelanggang</title>
     
     <!-- 📱 TETAPAN PWA (HOME SCREEN APP MODE) -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -21,24 +21,39 @@
 </head>
 <body class="bg-white text-gray-900 font-sans p-3 min-h-screen flex flex-col justify-between select-none">
 
-    <!-- HEADER, LOGO & MASA -->
-    <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md">
+    <!-- HEADER, PILIHAN GELANGGANG, LOGO & MASA -->
+    <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md flex-wrap gap-2">
         <div class="flex items-center gap-3">
             <img id="logo-kejohanan" src="LOGO FATANI.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
             <div>
-                <h1 id="top-kelas" class="text-xl font-black text-gray-800 tracking-wider">KELAS A PUTERA</h1>
-                <p id="top-round" class="text-xs font-black text-amber-600">ROUND 1 / 3</p>
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-md uppercase" id="papar-gelanggang-tag">GELANGGANG 1</span>
+                    <h1 id="top-kelas" class="text-lg font-black text-gray-800 tracking-wider">KELAS A PUTERA</h1>
+                </div>
+                <p id="top-round" class="text-xs font-black text-amber-600 mt-0.5">ROUND 1 / 3</p>
             </div>
         </div>
 
-        <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-6 py-2 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
+        <!-- PILIHAN GELANGGANG UTAMA HEADER -->
+        <div class="flex items-center gap-1 bg-white border border-gray-300 p-1.5 rounded-xl shadow-sm">
+            <span class="text-[10px] font-black text-gray-600 px-1">🏟️ GELANGGANG:</span>
+            <select id="pilih-gelanggang-global" onchange="tukarGelanggang(this.value)" class="bg-gray-100 text-gray-900 font-black text-xs px-2 py-1 rounded-lg border border-gray-300 cursor-pointer focus:outline-none">
+                <option value="gelanggang_1">GELANGGANG 1 (ARENA A)</option>
+                <option value="gelanggang_2">GELANGGANG 2 (ARENA B)</option>
+                <option value="gelanggang_3">GELANGGANG 3 (ARENA C)</option>
+                <option value="gelanggang_4">GELANGGANG 4 (ARENA D)</option>
+            </select>
+        </div>
+
+        <!-- PAPARAN MASA UTAMA -->
+        <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-5 py-1.5 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
             02:00
         </div>
 
-        <div class="flex gap-2">
-            <button onclick="bukaMod('depan')" class="bg-white hover:bg-gray-200 text-gray-800 text-xs px-3 py-2 rounded-xl border border-gray-300 font-bold shadow-sm">🏠 Muka Depan</button>
-            <button onclick="mintaAkses('pengadil')" class="bg-yellow-500 hover:bg-yellow-400 text-gray-950 text-xs px-3 py-2 rounded-xl font-black shadow">🔒 Panel Pengadil</button>
-            <button onclick="mintaAkses('ketua')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-2 rounded-xl font-bold shadow">🔒 Ketua Pengadil</button>
+        <div class="flex gap-1.5">
+            <button onclick="bukaMod('depan')" class="bg-white hover:bg-gray-200 text-gray-800 text-xs px-3 py-2 rounded-xl border border-gray-300 font-bold shadow-sm">🏠 Depan</button>
+            <button onclick="mintaAkses('pengadil')" class="bg-yellow-500 hover:bg-yellow-400 text-gray-950 text-xs px-3 py-2 rounded-xl font-black shadow">🔒 Pengadil</button>
+            <button onclick="mintaAkses('ketua')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-2 rounded-xl font-bold shadow">🔒 Ketua</button>
         </div>
     </header>
 
@@ -84,12 +99,17 @@
     <!-- 2. BAHAGIAN PENGADIL -->
     <main id="mod-pengadil" class="hidden max-w-3xl mx-auto w-full my-auto py-2">
         <div class="flex justify-between items-center bg-gray-100 p-3 rounded-xl mb-3 border border-gray-300">
-            <span class="text-xs font-bold text-gray-800">PILIH NOMBOR PENGADIL:</span>
-            <select id="pilih-no-pengadil" class="bg-white text-gray-900 font-black text-sm px-4 py-1 rounded-lg border border-gray-300 shadow-sm">
-                <option value="PENGADIL 1">PENGADIL 1</option>
-                <option value="PENGADIL 2">PENGADIL 2</option>
-                <option value="PENGADIL 3">PENGADIL 3</option>
-            </select>
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-gray-800">PILIH NOMBOR PENGADIL:</span>
+                <select id="pilih-no-pengadil" class="bg-white text-gray-900 font-black text-sm px-3 py-1 rounded-lg border border-gray-300 shadow-sm">
+                    <option value="PENGADIL 1">PENGADIL 1</option>
+                    <option value="PENGADIL 2">PENGADIL 2</option>
+                    <option value="PENGADIL 3">PENGADIL 3</option>
+                </select>
+            </div>
+            <div class="text-xs font-black text-emerald-700 bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-300" id="label-pengadil-gelanggang">
+                GELANGGANG 1
+            </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4 h-[68vh]">
@@ -247,7 +267,7 @@
         Sistem Pemarkahan Silat Cloud © 2026
     </footer>
 
-    <!-- LOGIK JAVASCRIPT, FIREBASE, SIREN & UNDO -->
+    <!-- LOGIK JAVASCRIPT, MULTI-GELANGGANG, FIREBASE, SIREN & UNDO -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB4WyizV5KLsu2zSwtUy3mtaFT4KaWxTI0",
@@ -263,12 +283,15 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        let gelanggangSemasa = "gelanggang_1"; // ID Asas Gelanggang
         let modTujuan = ""; 
         let sudahLogin = false; 
         let dataPerlawanan = {};
         let pemasaInterval = null;
         let dataArkibSemua = {};
         let currentArkibKey = null;
+        let firebaseListenerLive = null;
+        let firebaseListenerArkib = null;
 
         function mainkanSiren() {
             try {
@@ -293,50 +316,68 @@
             }
         }
 
-        db.ref('silat_live').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if(!data) {
-                db.ref('silat_live').set({
-                    logo: "LOGO FATANI.png",
-                    kelas: "KELAS A PUTERA",
-                    currentRound: 1,
-                    maxRound: 3,
-                    masaMinit: 2,
-                    masaSaat: 120,
-                    masaJalan: false,
-                    merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
-                    biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false }
-                });
-                return;
-            }
-            dataPerlawanan = data;
-            renderUI();
-            kawalJamLocal();
-        });
-
-        db.ref('silat_arkib').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if(!data) {
-                dataArkibSemua = {};
-                document.getElementById('arkib-list').innerHTML = `<div class="text-gray-400">Tiada rekod arkib...</div>`;
-                return;
-            }
-            dataArkibSemua = data;
+        // FUNGSI PERTUKARAN GELANGGANG
+        function tukarGelanggang(gelanggangKey) {
+            gelanggangSemasa = gelanggangKey;
             
-            const listArr = Object.entries(data).reverse();
-            document.getElementById('arkib-list').innerHTML = listArr.map(([key, item]) => `
-                <div class="p-2.5 bg-white border border-gray-200 rounded-xl shadow-sm flex justify-between items-center">
-                    <div onclick="bukaArkibDetail('${key}')" class="cursor-pointer flex-1">
-                        <p class="font-bold text-gray-800 text-[11px]">${item.merah.nama} vs ${item.biru.nama}</p>
-                        <p class="text-[9px] text-gray-400">${item.kelas} • ${item.tarikh}</p>
+            // Kemaskini Paparan Tag Gelanggang
+            const namaG = gelanggangKey.replace('gelanggang_', 'GELANGGANG ');
+            document.getElementById('papar-gelanggang-tag').innerText = namaG;
+            document.getElementById('label-pengadil-gelanggang').innerText = namaG;
+
+            // Matikan pautan listener lama jika ada
+            if(firebaseListenerLive) db.ref(firebaseListenerLive).off();
+            if(firebaseListenerArkib) db.ref(firebaseListenerArkib).off();
+
+            firebaseListenerLive = `silat_live_${gelanggangSemasa}`;
+            firebaseListenerArkib = `silat_arkib_${gelanggangSemasa}`;
+
+            // Mula mendengar data gelanggang baharu
+            db.ref(firebaseListenerLive).on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(!data) {
+                    db.ref(firebaseListenerLive).set({
+                        logo: "LOGO FATANI.png",
+                        kelas: `KELAS A (${namaG})`,
+                        currentRound: 1,
+                        maxRound: 3,
+                        masaMinit: 2,
+                        masaSaat: 120,
+                        masaJalan: false,
+                        merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
+                        biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false }
+                    });
+                    return;
+                }
+                dataPerlawanan = data;
+                renderUI();
+                kawalJamLocal();
+            });
+
+            db.ref(firebaseListenerArkib).on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(!data) {
+                    dataArkibSemua = {};
+                    document.getElementById('arkib-list').innerHTML = `<div class="text-gray-400">Tiada rekod arkib gelanggang ini...</div>`;
+                    return;
+                }
+                dataArkibSemua = data;
+                
+                const listArr = Object.entries(data).reverse();
+                document.getElementById('arkib-list').innerHTML = listArr.map(([key, item]) => `
+                    <div class="p-2.5 bg-white border border-gray-200 rounded-xl shadow-sm flex justify-between items-center">
+                        <div onclick="bukaArkibDetail('${key}')" class="cursor-pointer flex-1">
+                            <p class="font-bold text-gray-800 text-[11px]">${item.merah.nama} vs ${item.biru.nama}</p>
+                            <p class="text-[9px] text-gray-400">${item.kelas} • ${item.tarikh}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-black text-xs text-emerald-600 mr-1">${item.merah.mata} - ${item.biru.mata}</span>
+                            <button onclick="padamSatuArkib('${key}')" class="text-gray-400 hover:text-red-600 p-1 text-xs">🗑️</button>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="font-black text-xs text-emerald-600 mr-1">${item.merah.mata} - ${item.biru.mata}</span>
-                        <button onclick="padamSatuArkib('${key}')" class="text-gray-400 hover:text-red-600 p-1 text-xs">🗑️</button>
-                    </div>
-                </div>
-            `).join('');
-        });
+                `).join('');
+            });
+        }
 
         function renderUI() {
             if(dataPerlawanan.logo) document.getElementById('logo-kejohanan').src = dataPerlawanan.logo;
@@ -372,7 +413,7 @@
             document.getElementById('btn-berat-merah').innerText = bMerah === 1 ? "KESALAHAN BERAT 2 (-10)" : (bMerah >= 2 ? "⚠️ DISQUALIFIED MERAH" : "KESALAHAN BERAT 1 (-5)");
 
             const bBiru = dataPerlawanan.biru?.berat || 0;
-            document.getElementById('btn-berat-biru').innerText = bBiru === 1 ? "KESALAHAN BERAT 2 (-10)" : (bBiru >= 2 ? "⚠️ DISQUALIFIED BIRU" : "KESALAHAN BERAT 1 (-5)");
+            document.getElementById('btn-berat-biru').innerText = bBiru === 1 ? "KESALAHAN BERAT 2 (-10)" : (bBiru >= 2 ? "⚠️️ DISQUALIFIED BIRU" : "KESALAHAN BERAT 1 (-5)");
 
             if(dataPerlawanan.logs) {
                 const logsArr = Object.values(dataPerlawanan.logs).reverse();
@@ -391,7 +432,7 @@
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
             const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
-            db.ref(`silat_live/${sudut}`).update({ mata: mataSemasa + mata });
+            db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
             tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
         }
 
@@ -402,27 +443,27 @@
 
             if(jenis === 'binaan') {
                 const b = (dataPerlawanan[sudut]?.binaan || 0) + 1;
-                updates[`silat_live/${sudut}/binaan`] = b > 2 ? 2 : b;
+                updates[`silat_live_${gelanggangSemasa}/${sudut}/binaan`] = b > 2 ? 2 : b;
                 tambahLog(pengadil, `BINAAN -> ${sudut.toUpperCase()}`, sudut, 'binaan', 1);
             } else if(jenis === 'amaran') {
-                updates[`silat_live/${sudut}/amaran`] = (dataPerlawanan[sudut]?.amaran || 0) + 1;
-                updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 1;
+                updates[`silat_live_${gelanggangSemasa}/${sudut}/amaran`] = (dataPerlawanan[sudut]?.amaran || 0) + 1;
+                updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - 1;
                 tambahLog(pengadil, `AMARAN (-1) -> ${sudut.toUpperCase()}`, sudut, 'amaran', 1);
             } else if(jenis === 'berat') {
                 const bSemasa = (dataPerlawanan[sudut]?.berat || 0) + 1;
                 const mSemasa = dataPerlawanan[sudut]?.mata || 0;
 
                 if(bSemasa === 1) {
-                    updates[`silat_live/${sudut}/berat`] = 1;
-                    updates[`silat_live/${sudut}/mata`] = mSemasa - 5;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/berat`] = 1;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = mSemasa - 5;
                     tambahLog(pengadil, `KESALAHAN BERAT 1 (-5) -> ${sudut.toUpperCase()}`, sudut, 'berat', 1);
                 } else if(bSemasa === 2) {
-                    updates[`silat_live/${sudut}/berat`] = 2;
-                    updates[`silat_live/${sudut}/mata`] = mSemasa - 10;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/berat`] = 2;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = mSemasa - 10;
                     tambahLog(pengadil, `KESALAHAN BERAT 2 (-10) -> ${sudut.toUpperCase()}`, sudut, 'berat', 2);
                 } else if(bSemasa >= 3) {
-                    updates[`silat_live/${sudut}/berat`] = 3;
-                    updates[`silat_live/${sudut}/disq`] = true;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/berat`] = 3;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/disq`] = true;
                     tambahLog(pengadil, `🚨 DISQUALIFIED (BATAL PERLAWANAN) -> ${sudut.toUpperCase()}`, sudut, 'berat', 3);
                 }
             }
@@ -451,35 +492,35 @@
                 let updates = {};
 
                 if(lastLog.jenisAction === 'mata') {
-                    updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - lastLog.nilai;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) - lastLog.nilai;
                 } else if(lastLog.jenisAction === 'binaan') {
                     const b = (dataPerlawanan[sudut]?.binaan || 0) - 1;
-                    updates[`silat_live/${sudut}/binaan`] = b < 0 ? 0 : b;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/binaan`] = b < 0 ? 0 : b;
                 } else if(lastLog.jenisAction === 'amaran') {
                     const a = (dataPerlawanan[sudut]?.amaran || 0) - 1;
-                    updates[`silat_live/${sudut}/amaran`] = a < 0 ? 0 : a;
-                    updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 1;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/amaran`] = a < 0 ? 0 : a;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 1;
                 } else if(lastLog.jenisAction === 'berat') {
                     const b = (dataPerlawanan[sudut]?.berat || 0) - 1;
-                    updates[`silat_live/${sudut}/berat`] = b < 0 ? 0 : b;
-                    updates[`silat_live/${sudut}/disq`] = false;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/berat`] = b < 0 ? 0 : b;
+                    updates[`silat_live_${gelanggangSemasa}/${sudut}/disq`] = false;
 
-                    if(lastLog.nilai === 1) updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 5;
-                    if(lastLog.nilai === 2) updates[`silat_live/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 10;
+                    if(lastLog.nilai === 1) updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 5;
+                    if(lastLog.nilai === 2) updates[`silat_live_${gelanggangSemasa}/${sudut}/mata`] = (dataPerlawanan[sudut]?.mata || 0) + 10;
                 }
 
-                db.ref(`silat_live/logs/${lastKey}`).remove();
+                db.ref(`silat_live_${gelanggangSemasa}/logs/${lastKey}`).remove();
                 db.ref().update(updates);
                 
                 const pengadil = document.getElementById('pilih-no-pengadil').value;
-                tambahLog(pengadil, `↩️ UNDO: ${lastLog.tindakan}`);
+                tambahLog(pengadil, `↩️️ UNDO: ${lastLog.tindakan}`);
             }
         }
 
         function setTetapanMasa() {
             const m = parseInt(document.getElementById('input-minit').value) || 2;
             const maxR = parseInt(document.getElementById('input-max-round').value) || 3;
-            db.ref('silat_live').update({
+            db.ref(`silat_live_${gelanggangSemasa}`).update({
                 masaMinit: m,
                 masaSaat: m * 60,
                 maxRound: maxR,
@@ -489,11 +530,11 @@
         }
 
         function kawalMasa(arahan) {
-            if(arahan === 'start') db.ref('silat_live').update({ masaJalan: true });
-            if(arahan === 'pause') db.ref('silat_live').update({ masaJalan: false });
+            if(arahan === 'start') db.ref(`silat_live_${gelanggangSemasa}`).update({ masaJalan: true });
+            if(arahan === 'pause') db.ref(`silat_live_${gelanggangSemasa}`).update({ masaJalan: false });
             if(arahan === 'reset') {
                 const s = (dataPerlawanan.masaMinit || 2) * 60;
-                db.ref('silat_live').update({ masaSaat: s, masaJalan: false });
+                db.ref(`silat_live_${gelanggangSemasa}`).update({ masaSaat: s, masaJalan: false });
             }
         }
 
@@ -505,7 +546,7 @@
 
             if(confirm(`Sahkan ke ROUND ${rSemasa + 1}? Binaan & Amaran akan direset 0. Markah & Kesalahan Berat KEKAL.`)) {
                 const m = dataPerlawanan.masaMinit || 2;
-                db.ref('silat_live').update({
+                db.ref(`silat_live_${gelanggangSemasa}`).update({
                     currentRound: rSemasa + 1,
                     masaSaat: m * 60,
                     masaJalan: false,
@@ -523,11 +564,11 @@
                 pemasaInterval = setInterval(() => {
                     if(dataPerlawanan.masaSaat > 0) {
                         dataPerlawanan.masaSaat--;
-                        db.ref('silat_live').update({ masaSaat: dataPerlawanan.masaSaat });
+                        db.ref(`silat_live_${gelanggangSemasa}`).update({ masaSaat: dataPerlawanan.masaSaat });
                     } else {
                         clearInterval(pemasaInterval);
                         pemasaInterval = null;
-                        db.ref('silat_live').update({ masaJalan: false });
+                        db.ref(`silat_live_${gelanggangSemasa}`).update({ masaJalan: false });
                         mainkanSiren();
                         alert("🔔 MASA TAMAT!");
                     }
@@ -543,7 +584,7 @@
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    db.ref('silat_live').update({ logo: e.target.result });
+                    db.ref(`silat_live_${gelanggangSemasa}`).update({ logo: e.target.result });
                     prosesSimpanBaki();
                 };
                 reader.readAsDataURL(fileInput.files[0]);
@@ -553,7 +594,7 @@
         }
 
         function prosesSimpanBaki() {
-            db.ref('silat_live').update({
+            db.ref(`silat_live_${gelanggangSemasa}`).update({
                 kelas: document.getElementById('edit-kelas').value || "KELAS PERLAWANAN",
                 merah: { ...dataPerlawanan.merah, nama: document.getElementById('edit-nama-merah').value, club: document.getElementById('edit-club-merah').value },
                 biru: { ...dataPerlawanan.biru, nama: document.getElementById('edit-nama-biru').value, club: document.getElementById('edit-club-biru').value }
@@ -562,17 +603,17 @@
         }
 
         function resetMata() {
-            if(confirm("Lakukan RESET? Perlawanan semasa akan DISIMPAN AUTOMATIK ke Arkib!")) {
-                const arkibRef = db.ref('silat_arkib').push();
+            if(confirm("Lakukan RESET? Perlawanan semasa akan DISIMPAN AUTOMATIK ke Arkib Gelanggang Ini!")) {
+                const arkibRef = db.ref(`silat_arkib_${gelanggangSemasa}`).push();
                 arkibRef.set({
                     ...dataPerlawanan,
                     tarikh: new Date().toLocaleString()
                 });
 
                 const m = dataPerlawanan.masaMinit || 2;
-                db.ref('silat_live').set({
+                db.ref(`silat_live_${gelanggangSemasa}`).set({
                     logo: dataPerlawanan.logo || "LOGO FATANI.png",
-                    kelas: dataPerlawanan.kelas || "KELAS A PUTERA",
+                    kelas: dataPerlawanan.kelas || "KELAS PERLAWANAN",
                     currentRound: 1,
                     maxRound: dataPerlawanan.maxRound || 3,
                     masaMinit: m,
@@ -587,7 +628,7 @@
         }
 
         function tambahLog(pengadil, tindakan, targetSudut = "", jenisAction = "", nilai = 0) {
-            db.ref('silat_live/logs').push({
+            db.ref(`silat_live_${gelanggangSemasa}/logs`).push({
                 round: dataPerlawanan.currentRound || 1,
                 pengadil: pengadil,
                 tindakan: tindakan,
@@ -639,14 +680,14 @@
 
         function padamSatuArkib(key) {
             if(confirm("Sahkan untuk PADAM rekod perlawanan ini dari Arkib?")) {
-                db.ref(`silat_arkib/${key}`).remove();
+                db.ref(`silat_arkib_${gelanggangSemasa}/${key}`).remove();
                 alert("Rekod berjaya dipadam!");
             }
         }
 
         function padamSemuaArkib() {
-            if(confirm("🚨 AMARAN: Adakah anda pasti mahu MEMADAM SEMUA REKOD ARKIB? Tindakan ini tidak boleh diundurkan!")) {
-                db.ref('silat_arkib').remove();
+            if(confirm("🚨 AMARAN: Adakah anda pasti mahu MEMADAM SEMUA REKOD ARKIB GELANGGANG INI?")) {
+                db.ref(`silat_arkib_${gelanggangSemasa}`).remove();
                 alert("Semua rekod arkib telah dipadam!");
             }
         }
@@ -679,6 +720,9 @@
             if(mod === 'pengadil') document.getElementById('mod-pengadil').classList.remove('hidden');
             if(mod === 'ketua') document.getElementById('mod-ketua').classList.remove('hidden');
         }
+
+        // Mula Tetapan Gelanggang Asal (Gelanggang 1)
+        tukarGelanggang('gelanggang_1');
     </script>
 </body>
 </html>
