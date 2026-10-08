@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pemarkahan Silat Digital Multi-Gelanggang</title>
+    <title>Sistem Pemarkahan Silat Digital Cloud</title>
     
-    <!-- 📱 TETAPAN PWA (HOME SCREEN APP MODE) -->
+    <!-- 📱 TETAPAN PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -21,7 +21,7 @@
 </head>
 <body class="bg-white text-gray-900 font-sans p-3 min-h-screen flex flex-col justify-between select-none">
 
-    <!-- HEADER, PILIHAN GELANGGANG, LOGO & MASA -->
+    <!-- HEADER, GELANGGANG & MASA -->
     <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md flex-wrap gap-2">
         <div class="flex items-center gap-3">
             <img id="logo-kejohanan" src="LOGO FATANI.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
@@ -34,7 +34,6 @@
             </div>
         </div>
 
-        <!-- PILIHAN GELANGGANG UTAMA HEADER -->
         <div class="flex items-center gap-1 bg-white border border-gray-300 p-1.5 rounded-xl shadow-sm">
             <span class="text-[10px] font-black text-gray-600 px-1">🏟️ GELANGGANG:</span>
             <select id="pilih-gelanggang-global" onchange="tukarGelanggang(this.value)" class="bg-gray-100 text-gray-900 font-black text-xs px-2 py-1 rounded-lg border border-gray-300 cursor-pointer focus:outline-none">
@@ -45,9 +44,15 @@
             </select>
         </div>
 
-        <!-- PAPARAN MASA UTAMA -->
-        <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-5 py-1.5 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
-            02:00
+        <div class="flex items-center gap-2">
+            <!-- PAPARAN MASA KECEDERAAN JIKA AKTIF -->
+            <div id="papar-masa-medik-box" class="hidden bg-red-600 text-white font-mono font-black text-xl px-3 py-1 rounded-xl animate-pulse">
+                🏥 <span id="papar-masa-medik">03:00</span>
+            </div>
+            <!-- PAPARAN MASA UTAMA -->
+            <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-5 py-1.5 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
+                02:00
+            </div>
         </div>
 
         <div class="flex gap-1.5">
@@ -116,9 +121,9 @@
             <!-- MERAH -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
-                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
+                <button onclick="tekanPengadil('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
+                <button onclick="tekanPengadil('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
+                <button onclick="tekanPengadil('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
                     <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
@@ -130,9 +135,9 @@
             <!-- BIRU -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-blue-600 text-sm">SUDUT BIRU</p>
-                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
+                <button onclick="tekanPengadil('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
+                <button onclick="tekanPengadil('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
+                <button onclick="tekanPengadil('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
                     <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
@@ -148,7 +153,10 @@
         <div class="bg-gray-900 text-white p-4 rounded-2xl shadow-md border border-gray-800 space-y-3">
             <div class="flex justify-between items-center">
                 <h2 class="font-bold text-yellow-400 text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
-                <button onclick="mainkanSiren()" class="bg-gray-800 hover:bg-gray-700 text-yellow-400 text-[10px] px-3 py-1 rounded-lg border border-gray-700 font-bold">🔊 UJI BUNYI SIREN</button>
+                <div class="flex gap-2">
+                    <button onclick="kawalMasaMedik()" class="bg-red-700 hover:bg-red-600 text-white text-[10px] px-3 py-1 rounded-lg border border-red-500 font-bold">🏥 MASA KECEDERAAN (3 MIN)</button>
+                    <button onclick="mainkanSiren()" class="bg-gray-800 hover:bg-gray-700 text-yellow-400 text-[10px] px-3 py-1 rounded-lg border border-gray-700 font-bold">🔊 SIREN</button>
+                </div>
             </div>
             <div class="grid grid-cols-3 gap-3">
                 <div>
@@ -242,22 +250,26 @@
         </div>
     </div>
 
-    <!-- POPUP PAPAR ARKIB DETAIL PERLAWANAN -->
+    <!-- POPUP PAPAR ARKIB DETAIL & CETAK SCORE SHEET -->
     <div id="modal-arkib" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center p-4 z-50">
-        <div class="bg-white p-6 rounded-3xl max-w-lg w-full border border-gray-200 shadow-2xl space-y-4">
+        <div id="cetak-area" class="bg-white p-6 rounded-3xl max-w-lg w-full border border-gray-200 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b pb-2">
                 <h3 id="arkib-tajuk" class="font-black text-gray-900 text-sm">REKOD PERLAWANAN</h3>
                 <button onclick="tutupArkib()" class="text-gray-400 hover:text-black font-bold">✕</button>
             </div>
             <div id="arkib-detail-mata" class="grid grid-cols-2 gap-2 text-center text-xs p-3 bg-gray-100 rounded-xl font-bold">
             </div>
+            <div id="arkib-analitik" class="bg-amber-50 border border-amber-200 p-2.5 rounded-xl text-[10px] space-y-1">
+                <!-- STATISTIK PERLAWANAN -->
+            </div>
             <div class="space-y-1">
                 <p class="text-xs font-bold text-gray-700">LOG PERGERAKAN PENGADIL (ROUND BY ROUND):</p>
-                <div id="arkib-detail-logs" class="space-y-1 max-h-60 overflow-y-auto text-xs font-mono p-2 bg-gray-50 rounded-xl border border-gray-200">
+                <div id="arkib-detail-logs" class="space-y-1 max-h-48 overflow-y-auto text-xs font-mono p-2 bg-gray-50 rounded-xl border border-gray-200">
                 </div>
             </div>
             <div class="flex gap-2">
-                <button id="btn-delete-current-arkib" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl font-bold text-xs">🗑️ Padam Rekod Ini</button>
+                <button onclick="cetakScoreSheet()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold text-xs">🖨️ Cetak PDF</button>
+                <button id="btn-delete-current-arkib" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl font-bold text-xs">🗑️ Padam Rekod</button>
                 <button onclick="tutupArkib()" class="flex-1 bg-gray-800 text-white py-2 rounded-xl font-bold text-xs">Tutup</button>
             </div>
         </div>
@@ -267,7 +279,7 @@
         Sistem Pemarkahan Silat Cloud © 2026
     </footer>
 
-    <!-- LOGIK JAVASCRIPT, MULTI-GELANGGANG, FIREBASE, SIREN & UNDO -->
+    <!-- LOGIK JAVASCRIPT -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB4WyizV5KLsu2zSwtUy3mtaFT4KaWxTI0",
@@ -283,11 +295,12 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        let gelanggangSemasa = "gelanggang_1"; // ID Asas Gelanggang
+        let gelanggangSemasa = "gelanggang_1";
         let modTujuan = ""; 
         let sudahLogin = false; 
         let dataPerlawanan = {};
         let pemasaInterval = null;
+        let pemasaMedikInterval = null;
         let dataArkibSemua = {};
         let currentArkibKey = null;
         let firebaseListenerLive = null;
@@ -316,23 +329,18 @@
             }
         }
 
-        // FUNGSI PERTUKARAN GELANGGANG
         function tukarGelanggang(gelanggangKey) {
             gelanggangSemasa = gelanggangKey;
-            
-            // Kemaskini Paparan Tag Gelanggang
             const namaG = gelanggangKey.replace('gelanggang_', 'GELANGGANG ');
             document.getElementById('papar-gelanggang-tag').innerText = namaG;
             document.getElementById('label-pengadil-gelanggang').innerText = namaG;
 
-            // Matikan pautan listener lama jika ada
             if(firebaseListenerLive) db.ref(firebaseListenerLive).off();
             if(firebaseListenerArkib) db.ref(firebaseListenerArkib).off();
 
             firebaseListenerLive = `silat_live_${gelanggangSemasa}`;
             firebaseListenerArkib = `silat_arkib_${gelanggangSemasa}`;
 
-            // Mula mendengar data gelanggang baharu
             db.ref(firebaseListenerLive).on('value', (snapshot) => {
                 const data = snapshot.val();
                 if(!data) {
@@ -344,6 +352,8 @@
                         masaMinit: 2,
                         masaSaat: 120,
                         masaJalan: false,
+                        masaMedikSaat: 180,
+                        masaMedikJalan: false,
                         merah: { nama: "PESILAT MERAH", club: "PERTUBUHAN A", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false },
                         biru: { nama: "PESILAT BIRU", club: "PERTUBUHAN B", mata: 0, binaan: 0, amaran: 0, berat: 0, disq: false }
                     });
@@ -352,6 +362,7 @@
                 dataPerlawanan = data;
                 renderUI();
                 kawalJamLocal();
+                kawalJamMedikLocal();
             });
 
             db.ref(firebaseListenerArkib).on('value', (snapshot) => {
@@ -389,6 +400,16 @@
             const s = (totalS % 60).toString().padStart(2, '0');
             document.getElementById('papar-masa').innerText = `${m}:${s}`;
 
+            // Paparan Masa Medik
+            if(dataPerlawanan.masaMedikJalan) {
+                document.getElementById('papar-masa-medik-box').classList.remove('hidden');
+                const mMed = Math.floor((dataPerlawanan.masaMedikSaat || 180) / 60).toString().padStart(2, '0');
+                const sMed = ((dataPerlawanan.masaMedikSaat || 180) % 60).toString().padStart(2, '0');
+                document.getElementById('papar-masa-medik').innerText = `${mMed}:${sMed}`;
+            } else {
+                document.getElementById('papar-masa-medik-box').classList.add('hidden');
+            }
+
             document.getElementById('nama-merah').innerText = dataPerlawanan.merah?.nama || "MERAH";
             document.getElementById('club-merah').innerText = dataPerlawanan.merah?.club || "PERTUBUHAN";
             document.getElementById('mata-merah').innerText = dataPerlawanan.merah?.mata || 0;
@@ -413,7 +434,7 @@
             document.getElementById('btn-berat-merah').innerText = bMerah === 1 ? "KESALAHAN BERAT 2 (-10)" : (bMerah >= 2 ? "⚠️ DISQUALIFIED MERAH" : "KESALAHAN BERAT 1 (-5)");
 
             const bBiru = dataPerlawanan.biru?.berat || 0;
-            document.getElementById('btn-berat-biru').innerText = bBiru === 1 ? "KESALAHAN BERAT 2 (-10)" : (bBiru >= 2 ? "⚠️️ DISQUALIFIED BIRU" : "KESALAHAN BERAT 1 (-5)");
+            document.getElementById('btn-berat-biru').innerText = bBiru === 1 ? "KESALAHAN BERAT 2 (-10)" : (bBiru >= 2 ? "⚠️ DISQUALIFIED BIRU" : "KESALAHAN BERAT 1 (-5)");
 
             if(dataPerlawanan.logs) {
                 const logsArr = Object.values(dataPerlawanan.logs).reverse();
@@ -428,12 +449,47 @@
             }
         }
 
-        function tambahMata(sudut, mata, namaSukan) {
+        // SISTEM SAH MATA 2/3 PENGADIL (MAJORITY VOTING)
+        function tekanPengadil(sudut, mata, namaSukan) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
-            const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
-            db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
-            tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
+            const masaSekarang = Date.now();
+
+            // Simpan pergerakan pengadil sementara
+            db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).push({
+                pengadil: pengadil,
+                sudut: sudut,
+                mata: mata,
+                namaSukan: namaSukan,
+                masaMs: masaSekarang
+            });
+
+            // Semak pengesahan 2 daripada 3 pengadil
+            db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).once('value', (snap) => {
+                const votes = snap.val();
+                if(!votes) return;
+
+                const votesArr = Object.values(votes);
+                // Tapis undi dalam window 1.5 saat lepas untuk sudut & mata yang sama
+                const validVotes = votesArr.filter(v => 
+                    v.sudut === sudut && 
+                    v.mata === mata && 
+                    (masaSekarang - v.masaMs) <= 1500
+                );
+
+                // Buat senarai pengadil unik yang undi
+                const pengadilUnik = [...new Set(validVotes.map(v => v.pengadil))];
+
+                if(pengadilUnik.length >= 2) {
+                    // Cukup 2/3 pengadil - Sahkan mata ke pangkalan data utama!
+                    const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
+                    db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
+                    tambahLog(`SAH 2/3 (${pengadilUnik.join(', ')})`, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
+                    
+                    // Bersihkan undian pending
+                    db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).remove();
+                }
+            });
         }
 
         function tambahKesalahan(sudut, jenis) {
@@ -513,7 +569,7 @@
                 db.ref().update(updates);
                 
                 const pengadil = document.getElementById('pilih-no-pengadil').value;
-                tambahLog(pengadil, `↩️️ UNDO: ${lastLog.tindakan}`);
+                tambahLog(pengadil, `↩ UNDO: ${lastLog.tindakan}`);
             }
         }
 
@@ -535,6 +591,35 @@
             if(arahan === 'reset') {
                 const s = (dataPerlawanan.masaMinit || 2) * 60;
                 db.ref(`silat_live_${gelanggangSemasa}`).update({ masaSaat: s, masaJalan: false });
+            }
+        }
+
+        // FUNGSI MASA KECEDERAAN / MEDICAL TIMER (3 MINIT)
+        function kawalMasaMedik() {
+            const statusMedik = !dataPerlawanan.masaMedikJalan;
+            db.ref(`silat_live_${gelanggangSemasa}`).update({
+                masaMedikJalan: statusMedik,
+                masaMedikSaat: statusMedik ? 180 : (dataPerlawanan.masaMedikSaat || 180)
+            });
+        }
+
+        function kawalJamMedikLocal() {
+            if(dataPerlawanan.masaMedikJalan && !pemasaMedikInterval) {
+                pemasaMedikInterval = setInterval(() => {
+                    if((dataPerlawanan.masaMedikSaat || 180) > 0) {
+                        dataPerlawanan.masaMedikSaat--;
+                        db.ref(`silat_live_${gelanggangSemasa}`).update({ masaMedikSaat: dataPerlawanan.masaMedikSaat });
+                    } else {
+                        clearInterval(pemasaMedikInterval);
+                        pemasaMedikInterval = null;
+                        db.ref(`silat_live_${gelanggangSemasa}`).update({ masaMedikJalan: false });
+                        mainkanSiren();
+                        alert("🏥 MASA RAWATAN KECEDERAAN TAMAT (3 MINIT)!");
+                    }
+                }, 1000);
+            } else if(!dataPerlawanan.masaMedikJalan && pemasaMedikInterval) {
+                clearInterval(pemasaMedikInterval);
+                pemasaMedikInterval = null;
             }
         }
 
@@ -658,8 +743,25 @@
                 </div>
             `;
 
+            // KIRA STATISTIK ANALITIK PERLAWANAN
             if(item.logs) {
                 const logsArr = Object.values(item.logs);
+                const tumbukMerah = logsArr.filter(l => l.targetSudut === 'merah' && l.tindakan.includes('TUMBUKAN')).length;
+                const sepakMerah = logsArr.filter(l => l.targetSudut === 'merah' && l.tindakan.includes('SEPAKAN')).length;
+                const jatuhMerah = logsArr.filter(l => l.targetSudut === 'merah' && l.tindakan.includes('JATUHAN')).length;
+
+                const tumbukBiru = logsArr.filter(l => l.targetSudut === 'biru' && l.tindakan.includes('TUMBUKAN')).length;
+                const sepakBiru = logsArr.filter(l => l.targetSudut === 'biru' && l.tindakan.includes('SEPAKAN')).length;
+                const jatuhBiru = logsArr.filter(l => l.targetSudut === 'biru' && l.tindakan.includes('JATUHAN')).length;
+
+                document.getElementById('arkib-analitik').innerHTML = `
+                    <p class="font-black text-gray-800 text-[11px] mb-1">📊 STATISTIK PERLAWANAN:</p>
+                    <div class="grid grid-cols-2 gap-2 font-mono">
+                        <div>🔴 <b>MERAH:</b> ${tumbukMerah} Tumbuk | ${sepakMerah} Sepak | ${jatuhMerah} Jatuhan</div>
+                        <div>🔵 <b>BIRU:</b> ${tumbukBiru} Tumbuk | ${sepakBiru} Sepak | ${jatuhBiru} Jatuhan</div>
+                    </div>
+                `;
+
                 document.getElementById('arkib-detail-logs').innerHTML = logsArr.map(l => `
                     <div class="p-1.5 bg-white rounded border border-gray-200 flex justify-between">
                         <span><b>[ROUND ${l.round || 1}]</b> <b>[${l.pengadil}]</b> ${l.tindakan}</span>
@@ -676,6 +778,11 @@
             };
 
             document.getElementById('modal-arkib').classList.remove('hidden');
+        }
+
+        // FUNGSI CETAK PDF SCORE SHEET
+        function cetakScoreSheet() {
+            window.print();
         }
 
         function padamSatuArkib(key) {
@@ -721,7 +828,6 @@
             if(mod === 'ketua') document.getElementById('mod-ketua').classList.remove('hidden');
         }
 
-        // Mula Tetapan Gelanggang Asal (Gelanggang 1)
         tukarGelanggang('gelanggang_1');
     </script>
 </body>
