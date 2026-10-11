@@ -478,41 +478,47 @@
             }
         }
 
-        // SISTEM SAH MATA 2/3 PENGADIL (MAJORITY VOTING - WINDOW 5 SAAT)
+        // SISTEM SAH MATA 2/3 PENGADIL (MAJORITY VOTING - DENGAN SERVER TIMESTAMP)
         function tekanPengadil(sudut, mata, namaSukan) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
-            const masaSekarang = Date.now();
-
-            db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).push({
+            
+            // Simpan undian mengikut Server Timestamp
+            const newVoteRef = db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).push();
+            
+            newVoteRef.set({
                 pengadil: pengadil,
                 sudut: sudut,
                 mata: mata,
                 namaSukan: namaSukan,
-                masaMs: masaSekarang
-            });
+                masaMs: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
+                db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).once('value', (snap) => {
+                    const votes = snap.val();
+                    if(!votes) return;
 
-            db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).once('value', (snap) => {
-                const votes = snap.val();
-                if(!votes) return;
+                    const votesArr = Object.values(votes);
+                    const latestVote = votesArr[votesArr.length - 1];
+                    const masaRef = latestVote ? latestVote.masaMs : Date.now();
 
-                const votesArr = Object.values(votes);
-                // DITETAPKAN KEPADA SELA MASA 5 SAAT (5000ms)
-                const validVotes = votesArr.filter(v => 
-                    v.sudut === sudut && 
-                    v.mata === mata && 
-                    (masaSekarang - v.masaMs) <= 5000
-                );
+                    // Tapis undi dalam window 5 saat (5000ms)
+                    const validVotes = votesArr.filter(v => 
+                        v.sudut === sudut && 
+                        v.mata === mata && 
+                        Math.abs(masaRef - v.masaMs) <= 5000
+                    );
 
-                const pengadilUnik = [...new Set(validVotes.map(v => v.pengadil))];
+                    const pengadilUnik = [...new Set(validVotes.map(v => v.pengadil))];
 
-                if(pengadilUnik.length >= 2) {
-                    const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
-                    db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
-                    tambahLog(`SAH 2/3 (${pengadilUnik.join(', ')})`, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
-                    
-                    db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).remove();
-                }
+                    if(pengadilUnik.length >= 2) {
+                        const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
+                        db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
+                        tambahLog(`SAH 2/3 (${pengadilUnik.join(', ')})`, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
+                        
+                        // Bersihkan pending votes
+                        db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).remove();
+                    }
+                });
             });
         }
 
