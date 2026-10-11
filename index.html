@@ -103,7 +103,7 @@
 
     <!-- 2. BAHAGIAN PENGADIL -->
     <main id="mod-pengadil" class="hidden max-w-3xl mx-auto w-full my-auto py-2">
-        <div class="flex justify-between items-center bg-gray-100 p-3 rounded-xl mb-3 border border-gray-300">
+        <div class="flex justify-between items-center bg-gray-100 p-3 rounded-xl mb-2 border border-gray-300">
             <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-gray-800">PILIH NOMBOR PENGADIL:</span>
                 <select id="pilih-no-pengadil" class="bg-white text-gray-900 font-black text-sm px-3 py-1 rounded-lg border border-gray-300 shadow-sm">
@@ -117,7 +117,22 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 h-[68vh]">
+        <!-- MAKLUMAT PESILAT UNTUK PENGADIL -->
+        <div class="bg-gray-900 text-white p-2.5 rounded-xl mb-3 flex justify-between items-center text-xs font-bold border border-gray-800">
+            <div class="text-red-400">
+                <p id="pengadil-nama-merah" class="text-sm font-black uppercase">PESILAT MERAH</p>
+                <p id="pengadil-club-merah" class="text-[10px] text-red-200">PERTUBUHAN A</p>
+            </div>
+            <div class="text-center">
+                <span id="pengadil-kelas" class="bg-yellow-500 text-black px-2 py-0.5 rounded text-[10px] font-black">KELAS PERLAWANAN</span>
+            </div>
+            <div class="text-right text-blue-400">
+                <p id="pengadil-nama-biru" class="text-sm font-black uppercase">PESILAT BIRU</p>
+                <p id="pengadil-club-biru" class="text-[10px] text-blue-200">PERTUBUHAN B</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 h-[62vh]">
             <!-- MERAH -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
@@ -410,19 +425,33 @@
                 document.getElementById('papar-masa-medik-box').classList.add('hidden');
             }
 
-            document.getElementById('nama-merah').innerText = dataPerlawanan.merah?.nama || "MERAH";
-            document.getElementById('club-merah').innerText = dataPerlawanan.merah?.club || "PERTUBUHAN";
+            // Kemaskini Info Muka Depan & Panel Pengadil
+            const namaM = dataPerlawanan.merah?.nama || "MERAH";
+            const clubM = dataPerlawanan.merah?.club || "PERTUBUHAN";
+            const namaB = dataPerlawanan.biru?.nama || "BIRU";
+            const clubB = dataPerlawanan.biru?.club || "PERTUBUHAN";
+            const kelasP = dataPerlawanan.kelas || "KELAS PERLAWANAN";
+
+            document.getElementById('nama-merah').innerText = namaM;
+            document.getElementById('club-merah').innerText = clubM;
             document.getElementById('mata-merah').innerText = dataPerlawanan.merah?.mata || 0;
             document.getElementById('binaan-merah').innerText = (dataPerlawanan.merah?.binaan || 0) + "/2";
             document.getElementById('amaran-merah').innerText = dataPerlawanan.merah?.amaran || 0;
             document.getElementById('berat-merah').innerText = (dataPerlawanan.merah?.berat || 0) + "/3";
 
-            document.getElementById('nama-biru').innerText = dataPerlawanan.biru?.nama || "BIRU";
-            document.getElementById('club-biru').innerText = dataPerlawanan.biru?.club || "PERTUBUHAN";
+            document.getElementById('nama-biru').innerText = namaB;
+            document.getElementById('club-biru').innerText = clubB;
             document.getElementById('mata-biru').innerText = dataPerlawanan.biru?.mata || 0;
             document.getElementById('binaan-biru').innerText = (dataPerlawanan.biru?.binaan || 0) + "/2";
             document.getElementById('amaran-biru').innerText = dataPerlawanan.biru?.amaran || 0;
             document.getElementById('berat-biru').innerText = (dataPerlawanan.biru?.berat || 0) + "/3";
+
+            // Paparan Khas di Panel Pengadil
+            document.getElementById('pengadil-nama-merah').innerText = namaM;
+            document.getElementById('pengadil-club-merah').innerText = clubM;
+            document.getElementById('pengadil-nama-biru').innerText = namaB;
+            document.getElementById('pengadil-club-biru').innerText = clubB;
+            document.getElementById('pengadil-kelas').innerText = kelasP;
 
             if(dataPerlawanan.merah?.disq) document.getElementById('badge-disq-merah').classList.remove('hidden');
             else document.getElementById('badge-disq-merah').classList.add('hidden');
@@ -449,13 +478,12 @@
             }
         }
 
-        // SISTEM SAH MATA 2/3 PENGADIL (MAJORITY VOTING)
+        // SISTEM SAH MATA 2/3 PENGADIL (MAJORITY VOTING - WINDOW 5 SAAT)
         function tekanPengadil(sudut, mata, namaSukan) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
             const masaSekarang = Date.now();
 
-            // Simpan pergerakan pengadil sementara
             db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).push({
                 pengadil: pengadil,
                 sudut: sudut,
@@ -464,29 +492,25 @@
                 masaMs: masaSekarang
             });
 
-            // Semak pengesahan 2 daripada 3 pengadil
             db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).once('value', (snap) => {
                 const votes = snap.val();
                 if(!votes) return;
 
                 const votesArr = Object.values(votes);
-                // Tapis undi dalam window 1.5 saat lepas untuk sudut & mata yang sama
+                // DITETAPKAN KEPADA SELA MASA 5 SAAT (5000ms)
                 const validVotes = votesArr.filter(v => 
                     v.sudut === sudut && 
                     v.mata === mata && 
-                    (masaSekarang - v.masaMs) <= 1500
+                    (masaSekarang - v.masaMs) <= 5000
                 );
 
-                // Buat senarai pengadil unik yang undi
                 const pengadilUnik = [...new Set(validVotes.map(v => v.pengadil))];
 
                 if(pengadilUnik.length >= 2) {
-                    // Cukup 2/3 pengadil - Sahkan mata ke pangkalan data utama!
                     const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
                     db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
                     tambahLog(`SAH 2/3 (${pengadilUnik.join(', ')})`, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
                     
-                    // Bersihkan undian pending
                     db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).remove();
                 }
             });
@@ -594,7 +618,6 @@
             }
         }
 
-        // FUNGSI MASA KECEDERAAN / MEDICAL TIMER (3 MINIT)
         function kawalMasaMedik() {
             const statusMedik = !dataPerlawanan.masaMedikJalan;
             db.ref(`silat_live_${gelanggangSemasa}`).update({
@@ -743,7 +766,6 @@
                 </div>
             `;
 
-            // KIRA STATISTIK ANALITIK PERLAWANAN
             if(item.logs) {
                 const logsArr = Object.values(item.logs);
                 const tumbukMerah = logsArr.filter(l => l.targetSudut === 'merah' && l.tindakan.includes('TUMBUKAN')).length;
@@ -780,7 +802,6 @@
             document.getElementById('modal-arkib').classList.remove('hidden');
         }
 
-        // FUNGSI CETAK PDF SCORE SHEET
         function cetakScoreSheet() {
             window.print();
         }
