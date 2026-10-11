@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sistem Pemarkahan Silat Digital Cloud</title>
     
     <!-- 📱 TETAPAN PWA -->
@@ -19,24 +19,24 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
-<body class="bg-white text-gray-900 font-sans p-3 min-h-screen flex flex-col justify-between select-none">
+<body class="bg-white text-gray-900 font-sans p-2 sm:p-3 min-h-screen flex flex-col justify-between select-none">
 
     <!-- HEADER, GELANGGANG & MASA -->
-    <header class="bg-gray-100 border border-gray-300 p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md flex-wrap gap-2">
-        <div class="flex items-center gap-3">
-            <img id="logo-kejohanan" src="LOGO FATANI.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+    <header class="bg-gray-100 border border-gray-300 p-2 sm:p-3 rounded-2xl max-w-5xl mx-auto w-full flex justify-between items-center shadow-md flex-wrap gap-2">
+        <div class="flex items-center gap-2 sm:gap-3">
+            <img id="logo-kejohanan" src="LOGO FATANI.png" alt="Logo" class="w-10 h-10 sm:w-12 sm:h-12 object-contain rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
             <div>
-                <div class="flex items-center gap-2">
-                    <span class="text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-md uppercase" id="papar-gelanggang-tag">GELANGGANG 1</span>
-                    <h1 id="top-kelas" class="text-lg font-black text-gray-800 tracking-wider">KELAS A PUTERA</h1>
+                <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="text-[9px] sm:text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-md uppercase" id="papar-gelanggang-tag">GELANGGANG 1</span>
+                    <h1 id="top-kelas" class="text-base sm:text-lg font-black text-gray-800 tracking-wider">KELAS A PUTERA</h1>
                 </div>
-                <p id="top-round" class="text-xs font-black text-amber-600 mt-0.5">ROUND 1 / 3</p>
+                <p id="top-round" class="text-[10px] sm:text-xs font-black text-amber-600 mt-0.5">ROUND 1 / 3</p>
             </div>
         </div>
 
-        <div class="flex items-center gap-1 bg-white border border-gray-300 p-1.5 rounded-xl shadow-sm">
-            <span class="text-[10px] font-black text-gray-600 px-1">🏟️ GELANGGANG:</span>
-            <select id="pilih-gelanggang-global" onchange="tukarGelanggang(this.value)" class="bg-gray-100 text-gray-900 font-black text-xs px-2 py-1 rounded-lg border border-gray-300 cursor-pointer focus:outline-none">
+        <div class="flex items-center gap-1 bg-white border border-gray-300 p-1 sm:p-1.5 rounded-xl shadow-sm">
+            <span class="text-[9px] sm:text-[10px] font-black text-gray-600 px-1">🏟️ GELANGGANG:</span>
+            <select id="pilih-gelanggang-global" onchange="tukarGelanggang(this.value)" class="bg-gray-100 text-gray-900 font-black text-xs px-1.5 py-1 rounded-lg border border-gray-300 cursor-pointer focus:outline-none">
                 <option value="gelanggang_1">GELANGGANG 1 (ARENA A)</option>
                 <option value="gelanggang_2">GELANGGANG 2 (ARENA B)</option>
                 <option value="gelanggang_3">GELANGGANG 3 (ARENA C)</option>
@@ -45,193 +45,194 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <div id="papar-masa-medik-box" class="hidden bg-red-600 text-white font-mono font-black text-xl px-3 py-1 rounded-xl animate-pulse">
+            <div id="papar-masa-medik-box" class="hidden bg-red-600 text-white font-mono font-black text-lg sm:text-xl px-2.5 py-1 rounded-xl animate-pulse">
                 🏥 <span id="papar-masa-medik">03:00</span>
             </div>
-            <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-5 py-1.5 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
+            <div class="bg-gray-900 text-yellow-400 font-mono font-black text-2xl sm:text-3xl px-3 sm:px-5 py-1 sm:py-1.5 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
                 02:00
             </div>
         </div>
 
-        <div class="flex gap-1.5">
-            <button onclick="bukaMod('depan')" class="bg-white hover:bg-gray-200 text-gray-800 text-xs px-3 py-2 rounded-xl border border-gray-300 font-bold shadow-sm">🏠 Depan</button>
-            <button onclick="mintaAkses('pengadil')" class="bg-yellow-500 hover:bg-yellow-400 text-gray-950 text-xs px-3 py-2 rounded-xl font-black shadow">🔒 Pengadil</button>
-            <button onclick="mintaAkses('ketua')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-2 rounded-xl font-bold shadow">🔒 Ketua</button>
+        <div class="flex gap-1">
+            <button onclick="bukaMod('depan')" class="bg-white hover:bg-gray-200 text-gray-800 text-[11px] sm:text-xs px-2.5 py-1.5 sm:py-2 rounded-xl border border-gray-300 font-bold shadow-sm">🏠 Depan</button>
+            <button onclick="mintaAkses('pengadil')" class="bg-yellow-500 hover:bg-yellow-400 text-gray-950 text-[11px] sm:text-xs px-2.5 py-1.5 sm:py-2 rounded-xl font-black shadow">🔒 Pengadil</button>
+            <button onclick="mintaAkses('ketua')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] sm:text-xs px-2.5 py-1.5 sm:py-2 rounded-xl font-bold shadow">🔒 Ketua</button>
         </div>
     </header>
 
     <!-- 1. MUKA DEPAN (PAPAN MARKAH UTAMA) -->
     <main id="mod-depan" class="max-w-5xl mx-auto w-full my-auto py-4">
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-2 gap-4 sm:gap-6">
             <!-- MERAH -->
-            <div id="card-merah" class="bg-red-50 border-4 border-red-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
-                <div id="badge-disq-merah" class="hidden absolute inset-0 bg-black/80 z-20 flex flex-col justify-center items-center text-red-500 font-black text-4xl tracking-widest backdrop-blur-sm">
+            <div id="card-merah" class="bg-red-50 border-4 border-red-600 p-4 sm:p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
+                <div id="badge-disq-merah" class="hidden absolute inset-0 bg-black/80 z-20 flex flex-col justify-center items-center text-red-500 font-black text-3xl sm:text-4xl tracking-widest backdrop-blur-sm">
                     ⚠️ DISQUALIFIED
                     <span class="text-xs text-white mt-2">(DIBATALKAN PERLAWANAN)</span>
                 </div>
-                <div class="absolute top-0 left-0 bg-red-600 text-white font-black px-4 py-1 rounded-br-2xl text-xs">SUDUT MERAH</div>
-                <h2 id="nama-merah" class="text-4xl font-black mt-2 text-red-900 tracking-wide uppercase">PESILAT MERAH</h2>
-                <p id="club-merah" class="text-base text-red-700 mt-1 uppercase font-semibold">PERTUBUHAN A</p>
-                <div id="mata-merah" class="text-[9rem] font-black leading-none my-2 text-red-600 drop-shadow-md">0</div>
-                <div class="grid grid-cols-3 gap-2 text-xs bg-white p-3 rounded-2xl border border-red-200 shadow-inner">
-                    <div><p class="text-gray-500 font-bold text-[10px]">BINAAN</p><p id="binaan-merah" class="text-xl font-black text-amber-600">0/2</p></div>
-                    <div><p class="text-gray-500 font-bold text-[10px]">AMARAN (-1)</p><p id="amaran-merah" class="text-xl font-black text-amber-600">0</p></div>
-                    <div><p class="text-gray-500 font-bold text-[10px]">K. BERAT</p><p id="berat-merah" class="text-xl font-black text-red-600">0/3</p></div>
+                <div class="absolute top-0 left-0 bg-red-600 text-white font-black px-3 sm:px-4 py-1 rounded-br-2xl text-[10px] sm:text-xs">SUDUT MERAH</div>
+                <h2 id="nama-merah" class="text-2xl sm:text-4xl font-black mt-2 text-red-900 tracking-wide uppercase truncate">PESILAT MERAH</h2>
+                <p id="club-merah" class="text-xs sm:text-base text-red-700 mt-0.5 sm:mt-1 uppercase font-semibold truncate">PERTUBUHAN A</p>
+                <div id="mata-merah" class="text-[6rem] sm:text-[9rem] font-black leading-none my-1 sm:my-2 text-red-600 drop-shadow-md">0</div>
+                <div class="grid grid-cols-3 gap-1 sm:gap-2 text-xs bg-white p-2 sm:p-3 rounded-2xl border border-red-200 shadow-inner">
+                    <div><p class="text-gray-500 font-bold text-[9px] sm:text-[10px]">BINAAN</p><p id="binaan-merah" class="text-lg sm:text-xl font-black text-amber-600">0/2</p></div>
+                    <div><p class="text-gray-500 font-bold text-[9px] sm:text-[10px]">AMARAN (-1)</p><p id="amaran-merah" class="text-lg sm:text-xl font-black text-amber-600">0</p></div>
+                    <div><p class="text-gray-500 font-bold text-[9px] sm:text-[10px]">K. BERAT</p><p id="berat-merah" class="text-lg sm:text-xl font-black text-red-600">0/3</p></div>
                 </div>
             </div>
 
             <!-- BIRU -->
-            <div id="card-biru" class="bg-blue-50 border-4 border-blue-600 p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
-                <div id="badge-disq-biru" class="hidden absolute inset-0 bg-black/80 z-20 flex flex-col justify-center items-center text-red-500 font-black text-4xl tracking-widest backdrop-blur-sm">
+            <div id="card-biru" class="bg-blue-50 border-4 border-blue-600 p-4 sm:p-6 rounded-3xl text-center shadow-xl relative overflow-hidden">
+                <div id="badge-disq-biru" class="hidden absolute inset-0 bg-black/80 z-20 flex flex-col justify-center items-center text-red-500 font-black text-3xl sm:text-4xl tracking-widest backdrop-blur-sm">
                     ⚠️ DISQUALIFIED
                     <span class="text-xs text-white mt-2">(DIBATALKAN PERLAWANAN)</span>
                 </div>
-                <div class="absolute top-0 left-0 bg-blue-600 text-white font-black px-4 py-1 rounded-br-2xl text-xs">SUDUT BIRU</div>
-                <h2 id="nama-biru" class="text-4xl font-black mt-2 text-blue-900 tracking-wide uppercase">PESILAT BIRU</h2>
-                <p id="club-biru" class="text-base text-blue-700 mt-1 uppercase font-semibold">PERTUBUHAN B</p>
-                <div id="mata-biru" class="text-[9rem] font-black leading-none my-2 text-blue-600 drop-shadow-md">0</div>
-                <div class="grid grid-cols-3 gap-2 text-xs bg-white p-3 rounded-2xl border border-blue-200 shadow-inner">
-                    <div><p class="text-gray-500 font-bold text-[10px]">BINAAN</p><p id="binaan-biru" class="text-xl font-black text-amber-600">0/2</p></div>
-                    <div><p class="text-gray-500 font-bold text-[10px]">AMARAN (-1)</p><p id="amaran-biru" class="text-xl font-black text-amber-600">0</p></div>
-                    <div><p class="text-gray-500 font-bold text-[10px]">K. BERAT</p><p id="berat-biru" class="text-xl font-black text-red-600">0/3</p></div>
+                <div class="absolute top-0 left-0 bg-blue-600 text-white font-black px-3 sm:px-4 py-1 rounded-br-2xl text-[10px] sm:text-xs">SUDUT BIRU</div>
+                <h2 id="nama-biru" class="text-2xl sm:text-4xl font-black mt-2 text-blue-900 tracking-wide uppercase truncate">PESILAT BIRU</h2>
+                <p id="club-biru" class="text-xs sm:text-base text-blue-700 mt-0.5 sm:mt-1 uppercase font-semibold truncate">PERTUBUHAN B</p>
+                <div id="mata-biru" class="text-[6rem] sm:text-[9rem] font-black leading-none my-1 sm:my-2 text-blue-600 drop-shadow-md">0</div>
+                <div class="grid grid-cols-3 gap-1 sm:gap-2 text-xs bg-white p-2 sm:p-3 rounded-2xl border border-blue-200 shadow-inner">
+                    <div><p class="text-gray-500 font-bold text-[9px] sm:text-[10px]">BINAAN</p><p id="binaan-biru" class="text-lg sm:text-xl font-black text-amber-600">0/2</p></div>
+                    <div><p class="text-gray-500 font-bold text-[9px] sm:text-[10px]">AMARAN (-1)</p><p id="amaran-biru" class="text-lg sm:text-xl font-black text-amber-600">0</p></div>
+                    <div><p class="text-gray-500 font-bold text-[9px] sm:text-[10px]">K. BERAT</p><p id="berat-biru" class="text-lg sm:text-xl font-black text-red-600">0/3</p></div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 2. BAHAGIAN PENGADIL -->
-    <main id="mod-pengadil" class="hidden max-w-3xl mx-auto w-full my-auto py-2">
-        <div class="flex justify-between items-center bg-gray-100 p-3 rounded-xl mb-2 border border-gray-300">
+    <!-- 2. BAHAGIAN PENGADIL (KHAS UNTUK TELEFON PINTAR) -->
+    <main id="mod-pengadil" class="hidden max-w-3xl mx-auto w-full my-auto py-1 sm:py-2">
+        <div class="flex justify-between items-center bg-gray-100 p-2 sm:p-3 rounded-xl mb-2 border border-gray-300">
             <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-gray-800">PILIH NOMBOR PENGADIL:</span>
-                <select id="pilih-no-pengadil" class="bg-white text-gray-900 font-black text-sm px-3 py-1 rounded-lg border border-gray-300 shadow-sm">
+                <span class="text-[11px] sm:text-xs font-bold text-gray-800">NO PENGADIL:</span>
+                <select id="pilih-no-pengadil" class="bg-white text-gray-900 font-black text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-lg border border-gray-300 shadow-sm">
                     <option value="PENGADIL 1">PENGADIL 1</option>
                     <option value="PENGADIL 2">PENGADIL 2</option>
                     <option value="PENGADIL 3">PENGADIL 3</option>
                 </select>
             </div>
-            <div class="text-xs font-black text-emerald-700 bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-300" id="label-pengadil-gelanggang">
+            <div class="text-[11px] sm:text-xs font-black text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-lg border border-emerald-300" id="label-pengadil-gelanggang">
                 GELANGGANG 1
             </div>
         </div>
 
         <!-- MAKLUMAT PESILAT UNTUK PENGADIL -->
-        <div class="bg-gray-900 text-white p-2.5 rounded-xl mb-3 flex justify-between items-center text-xs font-bold border border-gray-800">
-            <div class="text-red-400">
-                <p id="pengadil-nama-merah" class="text-sm font-black uppercase">PESILAT MERAH</p>
-                <p id="pengadil-club-merah" class="text-[10px] text-red-200">PERTUBUHAN A</p>
+        <div class="bg-gray-900 text-white p-2 rounded-xl mb-2 flex justify-between items-center text-xs font-bold border border-gray-800">
+            <div class="text-red-400 w-1/3 text-left">
+                <p id="pengadil-nama-merah" class="text-xs sm:text-sm font-black uppercase truncate">PESILAT MERAH</p>
+                <p id="pengadil-club-merah" class="text-[9px] sm:text-[10px] text-red-200 truncate">PERTUBUHAN A</p>
             </div>
-            <div class="text-center">
-                <span id="pengadil-kelas" class="bg-yellow-500 text-black px-2 py-0.5 rounded text-[10px] font-black">KELAS PERLAWANAN</span>
+            <div class="text-center w-1/3">
+                <span id="pengadil-kelas" class="bg-yellow-500 text-black px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-black truncate block">KELAS PERLAWANAN</span>
             </div>
-            <div class="text-right text-blue-400">
-                <p id="pengadil-nama-biru" class="text-sm font-black uppercase">PESILAT BIRU</p>
-                <p id="pengadil-club-biru" class="text-[10px] text-blue-200">PERTUBUHAN B</p>
+            <div class="text-right text-blue-400 w-1/3">
+                <p id="pengadil-nama-biru" class="text-xs sm:text-sm font-black uppercase truncate">PESILAT BIRU</p>
+                <p id="pengadil-club-biru" class="text-[9px] sm:text-[10px] text-blue-200 truncate">PERTUBUHAN B</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 h-[62vh]">
+        <!-- BUTANG-BUTANG KHAS TOUCH MESRA TELEFON -->
+        <div class="grid grid-cols-2 gap-2 sm:gap-4 h-[65vh]">
             <!-- MERAH -->
-            <div class="flex flex-col gap-2">
-                <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
-                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
-                    <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
+            <div class="flex flex-col gap-1.5 sm:gap-2">
+                <p class="text-center font-black text-red-600 text-xs sm:text-sm">🔴 SUDUT MERAH</p>
+                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 active:bg-red-800 hover:bg-red-700 text-white text-lg sm:text-2xl font-black rounded-2xl border-b-4 border-red-800 shadow-md">TUMBUK (+1)</button>
+                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 active:bg-red-800 hover:bg-red-700 text-white text-lg sm:text-2xl font-black rounded-2xl border-b-4 border-red-800 shadow-md">SEPAK (+2)</button>
+                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 active:bg-red-800 hover:bg-red-700 text-white text-lg sm:text-2xl font-black rounded-2xl border-b-4 border-red-800 shadow-md">JATUHAN (+3)</button>
+                <div class="grid grid-cols-2 gap-1 sm:gap-2">
+                    <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 active:bg-amber-700 text-white py-2 font-bold text-[11px] sm:text-xs rounded-xl shadow">BINAAN</button>
+                    <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 active:bg-amber-800 text-white py-2 font-bold text-[11px] sm:text-xs rounded-xl shadow">AMARAN (-1)</button>
                 </div>
-                <button id="btn-berat-merah" onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 text-white border border-red-700 py-2 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
-                <button onclick="undoMata('merah')" class="bg-gray-800 hover:bg-gray-900 text-yellow-400 border border-gray-700 py-2.5 font-black text-xs rounded-xl shadow">↩️ UNDO (BATAL MERAH)</button>
+                <button id="btn-berat-merah" onclick="tambahKesalahan('merah', 'berat')" class="bg-red-950 active:bg-black text-white border border-red-700 py-1.5 font-bold text-[10px] sm:text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <button onclick="undoMata('merah')" class="bg-gray-800 active:bg-gray-950 text-yellow-400 border border-gray-700 py-2 font-black text-[11px] sm:text-xs rounded-xl shadow">↩️ UNDO MERAH</button>
             </div>
 
             <!-- BIRU -->
-            <div class="flex flex-col gap-2">
-                <p class="text-center font-black text-blue-600 text-sm">SUDUT BIRU</p>
-                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
-                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
-                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
-                    <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
+            <div class="flex flex-col gap-1.5 sm:gap-2">
+                <p class="text-center font-black text-blue-600 text-xs sm:text-sm">🔵 SUDUT BIRU</p>
+                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 active:bg-blue-800 hover:bg-blue-700 text-white text-lg sm:text-2xl font-black rounded-2xl border-b-4 border-blue-800 shadow-md">TUMBUK (+1)</button>
+                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 active:bg-blue-800 hover:bg-blue-700 text-white text-lg sm:text-2xl font-black rounded-2xl border-b-4 border-blue-800 shadow-md">SEPAK (+2)</button>
+                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 active:bg-blue-800 hover:bg-blue-700 text-white text-lg sm:text-2xl font-black rounded-2xl border-b-4 border-blue-800 shadow-md">JATUHAN (+3)</button>
+                <div class="grid grid-cols-2 gap-1 sm:gap-2">
+                    <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 active:bg-amber-700 text-white py-2 font-bold text-[11px] sm:text-xs rounded-xl shadow">BINAAN</button>
+                    <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 active:bg-amber-800 text-white py-2 font-bold text-[11px] sm:text-xs rounded-xl shadow">AMARAN (-1)</button>
                 </div>
-                <button id="btn-berat-biru" onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 text-white border border-blue-700 py-2 font-bold text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
-                <button onclick="undoMata('biru')" class="bg-gray-800 hover:bg-gray-900 text-yellow-400 border border-gray-700 py-2.5 font-black text-xs rounded-xl shadow">↩️ UNDO (BATAL BIRU)</button>
+                <button id="btn-berat-biru" onclick="tambahKesalahan('biru', 'berat')" class="bg-blue-950 active:bg-black text-white border border-blue-700 py-1.5 font-bold text-[10px] sm:text-xs rounded-xl">KESALAHAN BERAT (-5)</button>
+                <button onclick="undoMata('biru')" class="bg-gray-800 active:bg-gray-950 text-yellow-400 border border-gray-700 py-2 font-black text-[11px] sm:text-xs rounded-xl shadow">↩️ UNDO BIRU</button>
             </div>
         </div>
     </main>
 
     <!-- 3. KETUA PENGADIL -->
-    <main id="mod-ketua" class="hidden max-w-4xl mx-auto w-full my-auto space-y-4 py-2">
-        <div class="bg-gray-900 text-white p-4 rounded-2xl shadow-md border border-gray-800 space-y-3">
+    <main id="mod-ketua" class="hidden max-w-4xl mx-auto w-full my-auto space-y-3 sm:space-y-4 py-2">
+        <div class="bg-gray-900 text-white p-3 sm:p-4 rounded-2xl shadow-md border border-gray-800 space-y-3">
             <div class="flex justify-between items-center">
-                <h2 class="font-bold text-yellow-400 text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
+                <h2 class="font-bold text-yellow-400 text-xs sm:text-sm flex items-center gap-2">⏱️ KAWALAN MASA & ROUND PERLAWANAN</h2>
                 <div class="flex gap-2">
-                    <button onclick="kawalMasaMedik()" class="bg-red-700 hover:bg-red-600 text-white text-[10px] px-3 py-1 rounded-lg border border-red-500 font-bold">🏥 MASA KECEDERAAN (3 MIN)</button>
-                    <button onclick="mainkanSiren()" class="bg-gray-800 hover:bg-gray-700 text-yellow-400 text-[10px] px-3 py-1 rounded-lg border border-gray-700 font-bold">🔊 SIREN</button>
+                    <button onclick="kawalMasaMedik()" class="bg-red-700 hover:bg-red-600 text-white text-[10px] px-2.5 py-1 rounded-lg border border-red-500 font-bold">🏥 MASA KECEDERAAN (3 MIN)</button>
+                    <button onclick="mainkanSiren()" class="bg-gray-800 hover:bg-gray-700 text-yellow-400 text-[10px] px-2.5 py-1 rounded-lg border border-gray-700 font-bold">🔊 SIREN</button>
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-3 gap-2 sm:gap-3">
                 <div>
-                    <label class="text-[10px] text-gray-400 block font-bold">MASA SETIAP ROUND (MINIT):</label>
-                    <input type="number" id="input-minit" value="2" min="1" max="10" class="w-full bg-gray-800 border border-gray-700 p-2 rounded-xl text-yellow-400 font-bold text-sm">
+                    <label class="text-[9px] sm:text-[10px] text-gray-400 block font-bold">MASA ROUND (MINIT):</label>
+                    <input type="number" id="input-minit" value="2" min="1" max="10" class="w-full bg-gray-800 border border-gray-700 p-2 rounded-xl text-yellow-400 font-bold text-xs sm:text-sm">
                 </div>
                 <div>
-                    <label class="text-[10px] text-gray-400 block font-bold">JUMLAH ROUND:</label>
-                    <input type="number" id="input-max-round" value="3" min="1" max="5" class="w-full bg-gray-800 border border-gray-700 p-2 rounded-xl text-yellow-400 font-bold text-sm">
+                    <label class="text-[9px] sm:text-[10px] text-gray-400 block font-bold">JUMLAH ROUND:</label>
+                    <input type="number" id="input-max-round" value="3" min="1" max="5" class="w-full bg-gray-800 border border-gray-700 p-2 rounded-xl text-yellow-400 font-bold text-xs sm:text-sm">
                 </div>
                 <div class="flex items-end">
-                    <button onclick="setTetapanMasa()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-2.5 font-black text-xs rounded-xl shadow">⚙️ SETKAN TETAPAN</button>
+                    <button onclick="setTetapanMasa()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-2.5 font-black text-xs rounded-xl shadow">⚙️ SETKAN</button>
                 </div>
             </div>
 
-            <div class="flex gap-2 pt-2 border-t border-gray-800">
-                <button onclick="kawalMasa('start')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 font-black text-sm rounded-xl shadow">▶️ MULA MASA</button>
-                <button onclick="kawalMasa('pause')" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-3 font-black text-sm rounded-xl shadow">⏸️ PAUSE MASA</button>
-                <button onclick="kawalMasa('reset')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 font-bold text-xs rounded-xl shadow">🔄 RESET MASA</button>
-                <button onclick="nextRound()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 font-black text-sm rounded-xl shadow border-2 border-blue-400">⏩ NEXT ROUND</button>
+            <div class="flex gap-1.5 sm:gap-2 pt-2 border-t border-gray-800">
+                <button onclick="kawalMasa('start')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 sm:py-3 font-black text-xs sm:text-sm rounded-xl shadow">▶️ MULA</button>
+                <button onclick="kawalMasa('pause')" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white py-2.5 sm:py-3 font-black text-xs sm:text-sm rounded-xl shadow">⏸️ PAUSE</button>
+                <button onclick="kawalMasa('reset')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 sm:px-4 py-2.5 sm:py-3 font-bold text-xs rounded-xl shadow">🔄 RESET</button>
+                <button onclick="nextRound()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-2.5 sm:py-3 font-black text-xs sm:text-sm rounded-xl shadow border-2 border-blue-400">⏩ NEXT ROUND</button>
             </div>
         </div>
 
-        <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md space-y-3">
-            <h2 class="font-bold text-emerald-700 text-sm">📝 KETUA PENGADIL - KEMASKINI MAKLUMAT & LOGO</h2>
+        <div class="bg-gray-100 p-3 sm:p-4 rounded-2xl border border-gray-300 shadow-md space-y-3">
+            <h2 class="font-bold text-emerald-700 text-xs sm:text-sm">📝 KETUA PENGADIL - KEMASKINI MAKLUMAT & LOGO</h2>
             
-            <div class="bg-white p-3 rounded-xl border border-gray-200 space-y-2">
-                <label class="text-xs font-bold text-gray-700 block">📁 MUAT NAIK LOGO LAIN (JPG / PNG):</label>
-                <input type="file" id="upload-logo" accept="image/png, image/jpeg, image/jpg" class="w-full bg-gray-50 border border-gray-300 p-1.5 rounded-lg text-xs text-gray-800 cursor-pointer">
+            <div class="bg-white p-2.5 rounded-xl border border-gray-200 space-y-1.5">
+                <label class="text-[11px] sm:text-xs font-bold text-gray-700 block">📁 MUAT NAIK LOGO LAIN (JPG / PNG):</label>
+                <input type="file" id="upload-logo" accept="image/png, image/jpeg, image/jpg" class="w-full bg-gray-50 border border-gray-300 p-1 rounded-lg text-xs text-gray-800 cursor-pointer">
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                <input type="text" id="edit-kelas" placeholder="Kelas Perlawanan" class="col-span-2 bg-white border border-gray-300 p-2 rounded-xl text-sm text-gray-800">
-                <div class="bg-red-100/60 p-2.5 rounded-xl border border-red-200 space-y-2">
-                    <input type="text" id="edit-nama-merah" placeholder="Nama Pesilat Merah" class="w-full bg-white border border-gray-300 p-2 rounded-lg text-xs text-gray-800">
-                    <input type="text" id="edit-club-merah" placeholder="Pertubuhan Merah" class="w-full bg-white border border-gray-300 p-2 rounded-lg text-xs text-gray-800">
+            <div class="grid grid-cols-2 gap-2 sm:gap-3">
+                <input type="text" id="edit-kelas" placeholder="Kelas Perlawanan" class="col-span-2 bg-white border border-gray-300 p-2 rounded-xl text-xs sm:text-sm text-gray-800">
+                <div class="bg-red-100/60 p-2 sm:p-2.5 rounded-xl border border-red-200 space-y-1.5">
+                    <input type="text" id="edit-nama-merah" placeholder="Nama Pesilat Merah" class="w-full bg-white border border-gray-300 p-1.5 sm:p-2 rounded-lg text-xs text-gray-800">
+                    <input type="text" id="edit-club-merah" placeholder="Pertubuhan Merah" class="w-full bg-white border border-gray-300 p-1.5 sm:p-2 rounded-lg text-xs text-gray-800">
                 </div>
-                <div class="bg-blue-100/60 p-2.5 rounded-xl border border-blue-200 space-y-2">
-                    <input type="text" id="edit-nama-biru" placeholder="Nama Pesilat Biru" class="w-full bg-white border border-gray-300 p-2 rounded-lg text-xs text-gray-800">
-                    <input type="text" id="edit-club-biru" placeholder="Pertubuhan Biru" class="w-full bg-white border border-gray-300 p-2 rounded-lg text-xs text-gray-800">
+                <div class="bg-blue-100/60 p-2 sm:p-2.5 rounded-xl border border-blue-200 space-y-1.5">
+                    <input type="text" id="edit-nama-biru" placeholder="Nama Pesilat Biru" class="w-full bg-white border border-gray-300 p-1.5 sm:p-2 rounded-lg text-xs text-gray-800">
+                    <input type="text" id="edit-club-biru" placeholder="Pertubuhan Biru" class="w-full bg-white border border-gray-300 p-1.5 sm:p-2 rounded-lg text-xs text-gray-800">
                 </div>
             </div>
             <div class="flex gap-2 pt-1">
-                <button onclick="simpanMaklumat()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 font-bold text-xs rounded-xl shadow">💾 SIMPAN & HANTAR KE MUKA DEPAN</button>
-                <button onclick="resetMata()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-xs rounded-xl shadow">🔄 SIMPAN ARKIB & PERLAWANAN BARU</button>
+                <button onclick="simpanMaklumat()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 sm:py-3 font-bold text-xs rounded-xl shadow">💾 SIMPAN INFO</button>
+                <button onclick="resetMata()" class="bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 font-bold text-xs rounded-xl shadow">🔄 SIMPAN ARKIB & RESET</button>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-            <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md">
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+            <div class="bg-gray-100 p-3 sm:p-4 rounded-2xl border border-gray-300 shadow-md">
                 <h3 class="font-bold text-gray-800 text-xs mb-2">📡 LIVE LOG PERLAWANAN SEMASA</h3>
-                <div id="log-list" class="space-y-1.5 max-h-48 overflow-y-auto text-xs font-mono text-gray-700">
+                <div id="log-list" class="space-y-1.5 max-h-40 sm:max-h-48 overflow-y-auto text-[11px] sm:text-xs font-mono text-gray-700">
                     <div class="text-gray-400">Menunggu pergerakan pengadil...</div>
                 </div>
             </div>
 
-            <div class="bg-gray-100 p-4 rounded-2xl border border-gray-300 shadow-md">
+            <div class="bg-gray-100 p-3 sm:p-4 rounded-2xl border border-gray-300 shadow-md">
                 <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-emerald-800 text-xs">📜 REKOD PERLAWANAN TERDAHULU (ARKIB)</h3>
-                    <button onclick="padamSemuaArkib()" class="text-[10px] text-red-600 hover:text-red-800 font-bold bg-red-100 px-2 py-0.5 rounded-lg">🗑️ Padam Semua</button>
+                    <h3 class="font-bold text-emerald-800 text-xs">📜 REKOD ARKIB TERDAHULU</h3>
+                    <button onclick="padamSemuaArkib()" class="text-[9px] sm:text-[10px] text-red-600 hover:text-red-800 font-bold bg-red-100 px-2 py-0.5 rounded-lg">🗑️ Padam Semua</button>
                 </div>
-                <div id="arkib-list" class="space-y-2 max-h-48 overflow-y-auto text-xs">
+                <div id="arkib-list" class="space-y-1.5 sm:space-y-2 max-h-40 sm:max-h-48 overflow-y-auto text-xs">
                     <div class="text-gray-400">Tiada rekod arkib lagi...</div>
                 </div>
             </div>
@@ -273,7 +274,6 @@
             <div id="arkib-detail-mata" class="grid grid-cols-2 gap-2 text-center text-xs p-3 bg-gray-100 rounded-xl font-bold">
             </div>
             <div id="arkib-analitik" class="bg-amber-50 border border-amber-200 p-2.5 rounded-xl text-[10px] space-y-1">
-                <!-- STATISTIK PERLAWANAN -->
             </div>
             <div class="space-y-1">
                 <p class="text-xs font-bold text-gray-700">LOG PERGERAKAN PENGADIL (ROUND BY ROUND):</p>
@@ -389,7 +389,7 @@
                 
                 const listArr = Object.entries(data).reverse();
                 document.getElementById('arkib-list').innerHTML = listArr.map(([key, item]) => `
-                    <div class="p-2.5 bg-white border border-gray-200 rounded-xl shadow-sm flex justify-between items-center">
+                    <div class="p-2 bg-white border border-gray-200 rounded-xl shadow-sm flex justify-between items-center">
                         <div onclick="bukaArkibDetail('${key}')" class="cursor-pointer flex-1">
                             <p class="font-bold text-gray-800 text-[11px]">${item.merah.nama} vs ${item.biru.nama}</p>
                             <p class="text-[9px] text-gray-400">${item.kelas} • ${item.tarikh}</p>
@@ -413,7 +413,6 @@
             const s = (totalS % 60).toString().padStart(2, '0');
             document.getElementById('papar-masa').innerText = `${m}:${s}`;
 
-            // Paparan Masa Medik
             if(dataPerlawanan.masaMedikJalan) {
                 document.getElementById('papar-masa-medik-box').classList.remove('hidden');
                 const mMed = Math.floor((dataPerlawanan.masaMedikSaat || 180) / 60).toString().padStart(2, '0');
@@ -423,7 +422,6 @@
                 document.getElementById('papar-masa-medik-box').classList.add('hidden');
             }
 
-            // Kemaskini Info Muka Depan & Panel Pengadil
             const namaM = dataPerlawanan.merah?.nama || "MERAH";
             const clubM = dataPerlawanan.merah?.club || "PERTUBUHAN";
             const namaB = dataPerlawanan.biru?.nama || "BIRU";
@@ -444,7 +442,6 @@
             document.getElementById('amaran-biru').innerText = dataPerlawanan.biru?.amaran || 0;
             document.getElementById('berat-biru').innerText = (dataPerlawanan.biru?.berat || 0) + "/3";
 
-            // Paparan Khas di Panel Pengadil
             document.getElementById('pengadil-nama-merah').innerText = namaM;
             document.getElementById('pengadil-club-merah').innerText = clubM;
             document.getElementById('pengadil-nama-biru').innerText = namaB;
@@ -476,7 +473,7 @@
             }
         }
 
-        // FUNGSI MATA DIRECT (TIADA VOTING - TEKAN TERUS NAIK INSTANT)
+        // FUNGSI TAMBAH MATA DIRECT (REALTIME INSTANT)
         function tambahMata(sudut, mata, namaSukan) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
@@ -521,6 +518,7 @@
             db.ref().update(updates);
         }
 
+        // FUNGSI UNDO DENGAN DIALOG PENGESAHAN (CONFIRMATION)
         function undoMata(sudut) {
             if(!dataPerlawanan.logs) return alert("Tiada pergerakan untuk di-undo!");
 
@@ -538,7 +536,8 @@
 
             if(!lastKey || !lastLog) return alert(`Tiada rekod tindakan terakhir untuk Sudut ${sudut.toUpperCase()}!`);
 
-            if(confirm(`Sahkan BATAL (UNDO) pergerakan terakhir: "${lastLog.tindakan}"?`)) {
+            // PENGESAHAN KESELAMATAN SEBELUM UNDO
+            if(confirm(`⚠️ PENGESAHAN UNDO:\nAdakah anda pasti mahu BATALKAN tindakan terakhir "${lastLog.tindakan}" untuk Sudut ${sudut.toUpperCase()}?`)) {
                 let updates = {};
 
                 if(lastLog.jenisAction === 'mata') {
@@ -606,7 +605,7 @@
                         clearInterval(pemasaMedikInterval);
                         pemasaMedikInterval = null;
                         db.ref(`silat_live_${gelanggangSemasa}`).update({ masaMedikJalan: false });
-                        mainkanSiren();
+                        mainkanSiren(); // SIREN AUTOMATIK
                         alert("🏥 MASA RAWATAN KECEDERAAN TAMAT (3 MINIT)!");
                     }
                 }, 1000);
@@ -637,6 +636,7 @@
             }
         }
 
+        // SIREN AUTOMATIK APABILA MASA 00:00
         function kawalJamLocal() {
             if(dataPerlawanan.masaJalan && !pemasaInterval) {
                 pemasaInterval = setInterval(() => {
@@ -647,7 +647,7 @@
                         clearInterval(pemasaInterval);
                         pemasaInterval = null;
                         db.ref(`silat_live_${gelanggangSemasa}`).update({ masaJalan: false });
-                        mainkanSiren();
+                        mainkanSiren(); // BUNYI SIREN AUTOMATIK TERUS
                         alert("🔔 MASA TAMAT!");
                     }
                 }, 1000);
