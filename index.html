@@ -45,11 +45,9 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <!-- PAPARAN MASA KECEDERAAN JIKA AKTIF -->
             <div id="papar-masa-medik-box" class="hidden bg-red-600 text-white font-mono font-black text-xl px-3 py-1 rounded-xl animate-pulse">
                 🏥 <span id="papar-masa-medik">03:00</span>
             </div>
-            <!-- PAPARAN MASA UTAMA -->
             <div class="bg-gray-900 text-yellow-400 font-mono font-black text-3xl px-5 py-1.5 rounded-2xl border-2 border-yellow-500 shadow-inner tracking-widest" id="papar-masa">
                 02:00
             </div>
@@ -136,9 +134,9 @@
             <!-- MERAH -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-red-600 text-sm">SUDUT MERAH</p>
-                <button onclick="tekanPengadil('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
-                <button onclick="tekanPengadil('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
-                <button onclick="tekanPengadil('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
+                <button onclick="tambahMata('merah', 1, 'TUMBUKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">TUMBUK (+1)</button>
+                <button onclick="tambahMata('merah', 2, 'SEPAKAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">SEPAK (+2)</button>
+                <button onclick="tambahMata('merah', 3, 'JATUHAN')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xl font-black rounded-2xl border-b-4 border-red-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="tambahKesalahan('merah', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
                     <button onclick="tambahKesalahan('merah', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
@@ -150,9 +148,9 @@
             <!-- BIRU -->
             <div class="flex flex-col gap-2">
                 <p class="text-center font-black text-blue-600 text-sm">SUDUT BIRU</p>
-                <button onclick="tekanPengadil('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
-                <button onclick="tekanPengadil('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
-                <button onclick="tekanPengadil('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
+                <button onclick="tambahMata('biru', 1, 'TUMBUKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">TUMBUK (+1)</button>
+                <button onclick="tambahMata('biru', 2, 'SEPAKAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">SEPAK (+2)</button>
+                <button onclick="tambahMata('biru', 3, 'JATUHAN')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-2xl border-b-4 border-blue-800">JATUHAN (+3)</button>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="tambahKesalahan('biru', 'binaan')" class="bg-amber-500 text-white py-2 font-bold text-xs rounded-xl">BINAAN</button>
                     <button onclick="tambahKesalahan('biru', 'amaran')" class="bg-amber-600 text-white py-2 font-bold text-xs rounded-xl">AMARAN (-1)</button>
@@ -478,48 +476,14 @@
             }
         }
 
-        // SISTEM SAH MATA 2/3 PENGADIL (MAJORITY VOTING - DENGAN SERVER TIMESTAMP)
-        function tekanPengadil(sudut, mata, namaSukan) {
+        // FUNGSI MATA DIRECT (TIADA VOTING - TEKAN TERUS NAIK INSTANT)
+        function tambahMata(sudut, mata, namaSukan) {
             if(dataPerlawanan[sudut]?.disq) return alert("Pesilat ini sudah DISQUALIFIED!");
             const pengadil = document.getElementById('pilih-no-pengadil').value;
+            const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
             
-            // Simpan undian mengikut Server Timestamp
-            const newVoteRef = db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).push();
-            
-            newVoteRef.set({
-                pengadil: pengadil,
-                sudut: sudut,
-                mata: mata,
-                namaSukan: namaSukan,
-                masaMs: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).once('value', (snap) => {
-                    const votes = snap.val();
-                    if(!votes) return;
-
-                    const votesArr = Object.values(votes);
-                    const latestVote = votesArr[votesArr.length - 1];
-                    const masaRef = latestVote ? latestVote.masaMs : Date.now();
-
-                    // Tapis undi dalam window 5 saat (5000ms)
-                    const validVotes = votesArr.filter(v => 
-                        v.sudut === sudut && 
-                        v.mata === mata && 
-                        Math.abs(masaRef - v.masaMs) <= 5000
-                    );
-
-                    const pengadilUnik = [...new Set(validVotes.map(v => v.pengadil))];
-
-                    if(pengadilUnik.length >= 2) {
-                        const mataSemasa = dataPerlawanan[sudut]?.mata || 0;
-                        db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
-                        tambahLog(`SAH 2/3 (${pengadilUnik.join(', ')})`, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
-                        
-                        // Bersihkan pending votes
-                        db.ref(`silat_live_${gelanggangSemasa}/pendingVotes`).remove();
-                    }
-                });
-            });
+            db.ref(`silat_live_${gelanggangSemasa}/${sudut}`).update({ mata: mataSemasa + mata });
+            tambahLog(pengadil, `+${mata} Mata (${namaSukan}) -> ${sudut.toUpperCase()}`, sudut, 'mata', mata);
         }
 
         function tambahKesalahan(sudut, jenis) {
